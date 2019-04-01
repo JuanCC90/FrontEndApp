@@ -42,7 +42,7 @@ public class BasicView implements Serializable{
 	public List<PeliculaDTO> getPeliculas(){
 		peliculas = new ArrayList<>();
 		rt = new RestTemplate();
-		ResponseEntity<PeliculaDTO[]> res = rt.getForEntity("http://localhost:8080/AllPelis/", PeliculaDTO[].class);
+		ResponseEntity<PeliculaDTO[]> res = rt.getForEntity("http://localhost:8080/AllPelis", PeliculaDTO[].class);
 		return peliculas;
 	}
 	
