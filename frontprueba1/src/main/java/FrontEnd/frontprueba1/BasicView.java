@@ -35,8 +35,8 @@ public class BasicView implements Serializable{
 	private PeliculaRepository pelisRepo;
 	private PeliculaDTO pelicula;
 
-	@Autowired
-	private PeliculaService serviPeli;
+	
+	//private PeliculaService serviPeli;
 	
 	RestTemplate rt;
 	
@@ -49,7 +49,7 @@ public class BasicView implements Serializable{
 	}
 	
 	public void setPelicula(PeliculaService serviPeli) {
-		this.serviPeli=serviPeli;
+		//this.serviPeli=serviPeli;
 	}
 	
 	public String getNombre() {
@@ -94,7 +94,7 @@ public class BasicView implements Serializable{
 		
 	}//Fin Metodo
 	
-	public List<PeliculaDTO> agregar() {
+	public /*List<PeliculaDTO>*/ void agregar() {
 		/*
 		PeliculaDTO peli=new PeliculaDTO();
 		peli.setId(id);
@@ -112,22 +112,22 @@ public class BasicView implements Serializable{
 		rt = new RestTemplate();
 		HttpEntity<PeliculaDTO> request = new HttpEntity<>(pelicula);
 		rt.postForObject("http://localhost:8080/Pelicula/post", request, PeliculaDTO[].class);
-		peliculas = new ArrayList<>();
+		/*peliculas = new ArrayList<>();
 		peliculas.addAll(serviPeli.getAll());
-		return peliculas;
+		return peliculas;*/
 	}
 	
 	
-	public List<PeliculaDTO> borraPeli(long id) {
+	public /*List<PeliculaDTO>*/ void borraPeli(long id) {
 		peliculas = new ArrayList<>();
 		rt = new RestTemplate();
 		rt.delete("http://localhost:8080/Pelicula/Delete/"+id);
-		peliculas.addAll(serviPeli.getAll());
-		return peliculas;
+		/*peliculas.addAll(serviPeli.getAll());
+		return peliculas;*/
 	}
 	
 
-	public List<PeliculaDTO> actualiza(long id) {
+	public /*List<PeliculaDTO>*/ void actualiza(long id) {
 		/*
 		Pelicula peli=new Pelicula();
 		peli.setId(id);
@@ -146,15 +146,15 @@ public class BasicView implements Serializable{
 		HttpEntity<PeliculaDTO> request = new HttpEntity<>(pelicula);
 		rt.put("http://localhost:8080/Pelicula/put/"+id,request, PeliculaDTO.class);
 		
-		peliculas = new ArrayList<>();
+		/*peliculas = new ArrayList<>();
 		peliculas.addAll(serviPeli.getAll());
-		return peliculas;		
+		return peliculas;	*/	
 	}
 	
 	
 	public void recuperaInfo(long id) {
 		pelicula = new PeliculaDTO();
-		pelicula = serviPeli.buscar(id);
+		//pelicula = serviPeli.buscar(id);
 		this.nombre=pelicula.getNombre();
 		this.premios=pelicula.getPremios();
 		this.anio=pelicula.getAnio();
