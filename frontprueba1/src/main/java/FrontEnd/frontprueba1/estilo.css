@@ -1,0 +1,66 @@
+@charset "ISO-8859-1";
+
+*{
+	margin:0;
+	padding:0;
+}
+
+#table {
+	text-align: center;
+}
+
+
+
+body {
+	background-color: AliceBlue;
+	position:center;
+	
+}
+
+#botones {
+	width: 95px;
+	margin-left: 50%;	
+}
+
+
+
+
+ul{
+	list-style-type:none;
+	margin:0;
+	padding:0;	
+	background-color:rgba(226,226,226,1);
+}
+
+li{
+	float:left;
+}
+
+li a{
+	display:block;
+	color:white;
+	text-align:center;
+	padding:14px 16px;
+	text-decoraton:none;
+}
+
+li a:hover:not(.active){
+	background-color:white;
+}
+
+.active{
+	background-color:blue;
+}
+
+#footer{
+	position:fixed;
+	left:0;
+	bottom:0;
+	width:100%;
+	background-color:white;
+	text-align:center;
+	left:50px;
+}
+
+
+

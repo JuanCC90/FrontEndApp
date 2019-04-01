@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+	
+<h:head>
+	<title>Proyecto Prueba CRUD</title>
+	<link href="estilo.css" rel="stylesheet" type="text/css" />
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous" />
+</h:head>
+
+<h:body>
+	
+	<p:breadCrumb>
+		<p:menuitem value="Categories" url="#" icon="fa fa-home"></p:menuitem>
+		<p:menuitem value="Inicio" url="#"></p:menuitem>
+		<p:menuitem value="Servicios" url="#"></p:menuitem>
+		<p:menuitem value="Productos" url="#"></p:menuitem>
+		<p:menuitem value="Socios" url="#"></p:menuitem>
+		<p:menuitem value="Sobre Nosotros" url="#"></p:menuitem>
+	</p:breadCrumb>
+
+	<br></br>
+	<br></br>
+
+	<div>
+		<!-- Tabla Principal Que Carga Todo El Contenido Guardado -->
+
+		<p:dataTable id="table" var="Pelicula" value="#{basicView.getPeliculas()}" rows="10" paginator="true" paginatorTemplate="{CurrentPageReport} {FirstPageLink} 
+			{PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" rowsPerPageTemplate="5,10,15">
+
+			<p:column headerText="Id">
+				<h:outputText value="#{Pelicula.id}" />
+			</p:column>
+			<p:column headerText="Nombre">
+				<h:outputText value="#{Pelicula.nombre}" />
+			</p:column>
+			<p:column headerText="Anio">
+				<h:outputText value="#{Pelicula.anio}" />
+			</p:column>
+			<p:column headerText="Premios">
+				<h:outputText value="#{Pelicula.premios}" />
+			</p:column>
+
+
+
+			<!-- Columna Con Opciones Para Actualizar y Borrar -->
+			<p:column headerText="Options">
+
+				<!-- Boton Para Editar Elemento por Nombre, Anio y Premios -->
+				<h:form>
+					<p:commandButton value="Editar" icon="fa fa-fw fa-edit"
+						update="dialogEdicion"
+						actionListener="#{basicView.recuperaInfo(Pelicula.id)}"
+						oncomplete="PF('edit').show();" />
+					<p:dialog header="Edit Dialog" id="dialogEdicion" widgetVar="edit"
+						minHeight="20">
+						<h:panelGrid columns="1">
+
+							<h:outputLabel for="Nombre">Nombre Pelicula: </h:outputLabel>
+							<h:inputText value="#{basicView.nombre}" id="NombreEdita"></h:inputText>
+
+							<h:outputLabel for="Anio">Anio Pelicula: </h:outputLabel>
+							<h:inputText value="#{basicView.anio}" id="AnioEdita"></h:inputText>
+
+							<h:outputLabel for="Premios">Premios Pelicula: </h:outputLabel>
+							<h:inputText value="#{basicView.premios}" id="PremiosEdita"></h:inputText>
+
+							<p:commandButton
+								actionListener="#{basicView.actualiza(Pelicula.id)}"
+								value="Enviar" update="table"></p:commandButton>
+						</h:panelGrid>
+					</p:dialog>
+
+
+
+					<!-- Boton Para Borrar Elemento por Id -->
+					
+					<p:commandButton value="Borrar" type="submit" actionListener="#{basicView.borraPeli(Pelicula.id)}" update="table" icon="fa fa-trash">
+						<p:confirm header="Confirmation" message="Estas Seguro?" icon="pi pi-exclamation-triangle" />
+					</p:commandButton>
+					
+					<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+						<p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="pi pi-check" />
+						<p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="pi pi-times" />
+					</p:confirmDialog>
+					
+				</h:form>
+			</p:column>
+
+			<!-- Botones Para Pasar Pagina Adelante y Atras-->
+			<f:facet name="paginatorTopLeft">
+				<p:commandButton type="button" icon="pi pi-refresh" />
+			</f:facet>
+
+			<f:facet name="paginatorBottomRight">
+				<p:commandButton type="button" icon="pi pi-cloud-upload" />
+			</f:facet>
+
+		</p:dataTable>
+	</div>
+
+	<br></br>
+	<br></br>
+	<br></br>
+	
+	<div id="botones">
+		<!-- Boton Para Crear Nuevo Elemento Por Id, Nombre, Anio y Premios -->
+		<p:commandButton type="button" value="Nuevo" icon="fa fa-plus"
+			onclick="PF('create').show();" />
+		<p:dialog header="Create Dialog" widgetVar="create" minHeight="20">
+			<h:form>
+				<h:panelGrid columns="1">
+
+					<h:outputLabel for="nombre">Nombre Pelicula: </h:outputLabel>
+					<h:inputText value="#{basicView.nombre}"
+						label="Ingrese nombre Pelicula" required="true" id="nombreCrea"></h:inputText>
+
+					<h:outputLabel for="anio">Anio Pelicula: </h:outputLabel>
+					<h:inputText value="#{basicView.anio}"
+						label="Ingrese anio Pelicula" required="true" id="anioCrea"></h:inputText>
+
+					<h:outputLabel for="premios">Premios Pelicula: </h:outputLabel>
+					<h:inputText value="#{basicView.premios}"
+						label="Ingrese premios Pelicula" required="true" id="premiosCrea"></h:inputText>
+
+					<p:commandButton actionListener="#{basicView.agregar()}"
+						value="Enviar" update="table" />
+				</h:panelGrid>
+			</h:form>
+		</p:dialog>
+
+
+		<!-- Boton Para Buscar Elemento Por Id -->
+		<p:commandButton type="button" value="Buscar" icon="fa fa-search"
+			onclick="PF('busca').show();" />
+		<p:dialog header="Busca Dialog" widgetVar="busca" minHeight="20">
+			<h:form>
+				<h:panelGrid columns="1">
+
+					<h:outputLabel for="id">Id Pelicula: </h:outputLabel>
+					<h:inputText value="#{basicView.id}"
+						label="Ingrese nombre Pelicula" id="idBusca"></h:inputText>
+						
+					<h:outputLabel for="nombre">Nombre Pelicula: </h:outputLabel>
+					<h:inputText value="#{basicView.nombre}"
+						label="Ingrese nombre Pelicula" id="nombreBusca"></h:inputText>
+						
+					<h:outputLabel for="anio">Anio Pelicula: </h:outputLabel>
+					<h:inputText value="#{basicView.anio}"
+						label="Ingrese anio Pelicula" id="anioBusca"></h:inputText>
+						
+					<h:outputLabel for="premios">Premios Pelicula: </h:outputLabel>
+					<h:inputText value="#{basicView.premios}"
+						label="Ingrese premios Pelicula" id="premiosBusca"></h:inputText>
+
+
+					<p:commandButton actionListener="#{basicView.buscar()}"
+						value="Buscar" update="table"/>
+				</h:panelGrid>
+			</h:form>
+		</p:dialog>
+
+	</div>
+	<br></br>
+	<br></br>
+	<br></br>
+	<br></br>
+	
+	<div id="footer">
+		<strong>Creado por Juan Manuel Castro Cañal. 2019. Fujitsu. Nuevas Profesiones.</strong>
+	</div>
+</h:body>
+
+
+
+</html>
