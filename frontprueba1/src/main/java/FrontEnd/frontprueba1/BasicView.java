@@ -7,16 +7,12 @@ import java.util.List;
 import javax.annotation.ManagedBean;
 import javax.faces.view.ViewScoped;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
 import com.google.common.collect.Lists;
 
-import BackEnd.backprueba1.PeliculaDTO;
-import BackEnd.backprueba1.PeliculaRepository;
-import BackEnd.backprueba1.PeliculaService;
 import lombok.Data;
 
 @ManagedBean
@@ -32,7 +28,6 @@ public class BasicView implements Serializable{
 	
 	private List<PeliculaDTO> peliculas;
 	
-	private PeliculaRepository pelisRepo;
 	private PeliculaDTO pelicula;
 
 	
@@ -45,12 +40,12 @@ public class BasicView implements Serializable{
 	}
 	
 	public List<PeliculaDTO> getPeliculas(){
+		peliculas = new ArrayList<>();
+		rt = new RestTemplate();
+		ResponseEntity<PeliculaDTO[]> res = rt.getForEntity("http://localhost:8080/AllPelis/", PeliculaDTO[].class);
 		return peliculas;
 	}
 	
-	public void setPelicula(PeliculaService serviPeli) {
-		//this.serviPeli=serviPeli;
-	}
 	
 	public String getNombre() {
 		return nombre;
