@@ -14,6 +14,9 @@ import org.springframework.web.client.RestTemplate;
 
 import com.google.common.collect.Lists;
 
+import BackEnd.backprueba1.PeliculaDTO;
+import BackEnd.backprueba1.PeliculaRepository;
+import BackEnd.backprueba1.PeliculaService;
 import lombok.Data;
 
 @ManagedBean
