@@ -62,10 +62,3 @@ li a:hover:not(.active){
 }
 
 
-#busqueda{
-	float:left;
-	left: 100px;
-	position:fixed;
-	width:100%;
-	bottom:0;
-}

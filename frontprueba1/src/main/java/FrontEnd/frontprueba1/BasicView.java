@@ -5,7 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.ManagedBean;
-import javax.faces.view.ViewScoped;
+import javax.annotation.PostConstruct;
+import javax.enterprise.context.SessionScoped;
 
 import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
@@ -16,11 +17,12 @@ import com.google.common.collect.Lists;
 import lombok.Data;
 
 @ManagedBean
-@ViewScoped
+@SessionScoped
 @Data
 public class BasicView implements Serializable{
 	
 	
+	private static final long serialVersionUID = 5261986308241092411L;
 	private long id;
 	private String nombre;
 	private String anio;
@@ -34,10 +36,6 @@ public class BasicView implements Serializable{
 	//private PeliculaService serviPeli;
 	
 	RestTemplate rt;
-	
-	public BasicView() {
-		
-	}
 	
 	public List<PeliculaDTO> getPeliculas(){
 		 
@@ -86,7 +84,7 @@ public class BasicView implements Serializable{
 		return peliculas;
 	}
 	
-	public /*void*/List<PeliculaDTO> buscar() {
+	public List<PeliculaDTO> buscar() {
 		peliculas = new ArrayList<>();
 		rt = new RestTemplate();
 		ResponseEntity<PeliculaDTO[]> res =  rt.getForEntity("http://localhost:8080/Pelicula/busca?id="+id+"&nombre="+nombre+"&anio="+anio+"&premios="+premios, PeliculaDTO[].class);
@@ -95,7 +93,7 @@ public class BasicView implements Serializable{
 		
 	}//Fin Metodo
 	
-	public /*List<PeliculaDTO>*/ void agregar() {
+	public List<PeliculaDTO>agregar() {
 		/*
 		PeliculaDTO peli=new PeliculaDTO();
 		peli.setId(id);
@@ -113,22 +111,22 @@ public class BasicView implements Serializable{
 		rt = new RestTemplate();
 		HttpEntity<PeliculaDTO> request = new HttpEntity<>(pelicula);
 		rt.postForObject("http://localhost:8080/Pelicula/post", request, PeliculaDTO[].class);
-		/*peliculas = new ArrayList<>();
-		peliculas.addAll(serviPeli.getAll());
-		return peliculas;*/
+		peliculas = new ArrayList<>();
+		peliculas=dameTodas();
+		return peliculas;
 	}
 	
 	
-	public /*List<PeliculaDTO>*/ void borraPeli(long id) {
+	public List<PeliculaDTO> borraPeli(long id) {
 		peliculas = new ArrayList<>();
 		rt = new RestTemplate();
 		rt.delete("http://localhost:8080/Pelicula/Delete/"+id);
-		/*peliculas.addAll(serviPeli.getAll());
-		return peliculas;*/
+		peliculas = dameTodas();
+		return peliculas;
 	}
 	
 
-	public /*List<PeliculaDTO>*/ void actualiza(long id) {
+	public List<PeliculaDTO> actualiza(long id) {
 		/*
 		Pelicula peli=new Pelicula();
 		peli.setId(id);
@@ -147,9 +145,9 @@ public class BasicView implements Serializable{
 		HttpEntity<PeliculaDTO> request = new HttpEntity<>(pelicula);
 		rt.put("http://localhost:8080/Pelicula/put/"+id,request, PeliculaDTO.class);
 		
-		/*peliculas = new ArrayList<>();
-		peliculas.addAll(serviPeli.getAll());
-		return peliculas;	*/	
+		peliculas = new ArrayList<>();
+		peliculas = dameTodas();
+		return peliculas;	
 	}
 	
 	
