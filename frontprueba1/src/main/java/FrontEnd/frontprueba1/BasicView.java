@@ -44,13 +44,6 @@ public class BasicView implements Serializable{
 		return peliculas;
 	}
 	
-	public List<PeliculaDTO> dameTodas(){
-		peliculas = new ArrayList<>();
-		rt = new RestTemplate();
-		ResponseEntity<PeliculaDTO[]> res = rt.getForEntity("http://localhost:8080/AllPelis", PeliculaDTO[].class);
-		peliculas.addAll(Lists.newArrayList(res.getBody()));
-		return peliculas;
-	}
 	
 	public String getNombre() {
 		return nombre;
@@ -85,12 +78,20 @@ public class BasicView implements Serializable{
 		this.premios=premios;
 	}
 	
+	public List<PeliculaDTO> dameTodas(){
+		peliculas = new ArrayList<>();
+		rt = new RestTemplate();
+		ResponseEntity<PeliculaDTO[]> res = rt.getForEntity("http://localhost:8080/AllPelis", PeliculaDTO[].class);
+		peliculas.addAll(Lists.newArrayList(res.getBody()));
+		return peliculas;
+	}
 	
-	public void buscar() {
+	public /*void*/List<PeliculaDTO> buscar() {
 		peliculas = new ArrayList<>();
 		rt = new RestTemplate();
 		ResponseEntity<PeliculaDTO[]> res =  rt.getForEntity("http://localhost:8080/Pelicula/busca?id="+id+"&nombre="+nombre+"&anio="+anio+"&premios="+premios, PeliculaDTO[].class);
-		peliculas.addAll(Lists.newArrayList(res.getBody())); 
+		peliculas.addAll(Lists.newArrayList(res.getBody()));
+		return peliculas;
 		
 	}//Fin Metodo
 	

@@ -5,15 +5,18 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:f="http://xmlns.jcp.org/jsf/core">
-	
+
 <h:head>
 	<title>Proyecto Prueba CRUD</title>
 	<link href="estilo.css" rel="stylesheet" type="text/css" />
-	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous" />
+	<link rel="stylesheet"
+		href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+		integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
+		crossorigin="anonymous" />
 </h:head>
 
 <h:body>
-	
+
 	<p:breadCrumb>
 		<p:menuitem value="Categories" url="#" icon="fa fa-home"></p:menuitem>
 		<p:menuitem value="Inicio" url="#"></p:menuitem>
@@ -26,11 +29,45 @@
 	<br></br>
 	<br></br>
 
+
+	<div id="busqueda">
+		<h:form>
+			<h:panelGrid columns="1" cellpadding="5">
+
+				<h:outputLabel for="id">Id Pelicula: </h:outputLabel>
+				<h:inputText value="#{basicView.id}" label="Ingrese Id Pelicula"
+					id="idBusca"></h:inputText>
+
+				<h:outputLabel for="nombre">Nombre Pelicula: </h:outputLabel>
+				<h:inputText value="#{basicView.nombre}"
+					label="Ingrese nombre Pelicula" id="nombreBusca"></h:inputText>
+
+				<h:outputLabel for="anio">Anio Pelicula: </h:outputLabel>
+				<h:inputText value="#{basicView.anio}" label="Ingrese anio Pelicula"
+					id="anioBusca"></h:inputText>
+
+				<h:outputLabel for="premios">Premios Pelicula: </h:outputLabel>
+				<h:inputText value="#{basicView.premios}"
+					label="Ingrese premios Pelicula" id="premiosBusca"></h:inputText>
+
+				<p:commandButton actionListener="#{basicView.buscar()}"
+					value="Buscar" update="table" />
+			</h:panelGrid>
+		</h:form>
+	</div>
+	<br></br>
+	<br></br>
+	<br></br>
+	<br></br>
+	
 	<div>
 		<!-- Tabla Principal Que Carga Todo El Contenido Guardado -->
 
-		<p:dataTable id="table" var="Pelicula" value="#{basicView.getPeliculas()}" rows="10" paginator="true" paginatorTemplate="{CurrentPageReport} {FirstPageLink} 
-			{PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" rowsPerPageTemplate="5,10,15">
+		<p:dataTable id="table" var="Pelicula"
+			value="#{basicView.dameTodas()}" rows="10" paginator="true"
+			paginatorTemplate="{CurrentPageReport} {FirstPageLink} 
+			{PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+			rowsPerPageTemplate="5,10,15">
 
 			<p:column headerText="Id">
 				<h:outputText value="#{Pelicula.id}" />
@@ -78,16 +115,21 @@
 
 
 					<!-- Boton Para Borrar Elemento por Id -->
-					
-					<p:commandButton value="Borrar" type="submit" actionListener="#{basicView.borraPeli(Pelicula.id)}" update="table" icon="fa fa-trash">
-						<p:confirm header="Confirmation" message="Estas Seguro?" icon="pi pi-exclamation-triangle" />
+
+					<p:commandButton value="Borrar" type="submit"
+						actionListener="#{basicView.borraPeli(Pelicula.id)}"
+						update="table" icon="fa fa-trash">
+						<p:confirm header="Confirmation" message="Estas Seguro?"
+							icon="pi pi-exclamation-triangle" />
 					</p:commandButton>
-					
+
 					<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
-						<p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="pi pi-check" />
-						<p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="pi pi-times" />
+						<p:commandButton value="Yes" type="button"
+							styleClass="ui-confirmdialog-yes" icon="pi pi-check" />
+						<p:commandButton value="No" type="button"
+							styleClass="ui-confirmdialog-no" icon="pi pi-times" />
 					</p:confirmDialog>
-					
+
 				</h:form>
 			</p:column>
 
@@ -106,7 +148,7 @@
 	<br></br>
 	<br></br>
 	<br></br>
-	
+
 	<div id="botones">
 		<!-- Boton Para Crear Nuevo Elemento Por Id, Nombre, Anio y Premios -->
 		<p:commandButton type="button" value="Nuevo" icon="fa fa-plus"
@@ -133,8 +175,9 @@
 			</h:form>
 		</p:dialog>
 
-
+  
 		<!-- Boton Para Buscar Elemento Por Id -->
+		<!--  
 		<p:commandButton type="button" value="Buscar" icon="fa fa-search"
 			onclick="PF('busca').show();" />
 		<p:dialog header="Busca Dialog" widgetVar="busca" minHeight="20">
@@ -144,34 +187,35 @@
 					<h:outputLabel for="id">Id Pelicula: </h:outputLabel>
 					<h:inputText value="#{basicView.id}"
 						label="Ingrese nombre Pelicula" id="idBusca"></h:inputText>
-						
+
 					<h:outputLabel for="nombre">Nombre Pelicula: </h:outputLabel>
 					<h:inputText value="#{basicView.nombre}"
 						label="Ingrese nombre Pelicula" id="nombreBusca"></h:inputText>
-						
+
 					<h:outputLabel for="anio">Anio Pelicula: </h:outputLabel>
 					<h:inputText value="#{basicView.anio}"
 						label="Ingrese anio Pelicula" id="anioBusca"></h:inputText>
-						
+
 					<h:outputLabel for="premios">Premios Pelicula: </h:outputLabel>
 					<h:inputText value="#{basicView.premios}"
 						label="Ingrese premios Pelicula" id="premiosBusca"></h:inputText>
 
 
 					<p:commandButton actionListener="#{basicView.buscar()}"
-						value="Buscar" update="table"/>
+						value="Buscar" update="table" />
 				</h:panelGrid>
 			</h:form>
 		</p:dialog>
-
+		-->
 	</div>
 	<br></br>
 	<br></br>
 	<br></br>
 	<br></br>
-	
+
 	<div id="footer">
-		<strong>Creado por Juan Manuel Castro Cañal. 2019. Fujitsu. Nuevas Profesiones.</strong>
+		<strong>Creado por Juan Manuel Castro Cañal. 2019. Fujitsu.
+			Nuevas Profesiones.</strong>
 	</div>
 </h:body>
 
