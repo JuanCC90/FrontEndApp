@@ -54,7 +54,6 @@ li a:hover:not(.active){
 
 #footer{
 	position:fixed;
-	left:0;
 	bottom:0;
 	width:100%;
 	background-color:white;
@@ -63,4 +62,10 @@ li a:hover:not(.active){
 }
 
 
-
+#busqueda{
+	float:left;
+	left: 100px;
+	position:fixed;
+	width:100%;
+	bottom:0;
+}
