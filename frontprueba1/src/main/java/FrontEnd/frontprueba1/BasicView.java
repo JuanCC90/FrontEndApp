@@ -1,5 +1,6 @@
 package FrontEnd.frontprueba1;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -7,6 +8,7 @@ import java.util.List;
 import javax.annotation.ManagedBean;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.context.FacesContext;
 
 import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
@@ -159,7 +161,15 @@ public class BasicView implements Serializable{
 		this.anio=pelicula.getAnio();
 	}
 	
-	
+	public String redirecciona() throws IOException {
+		String url;
+		FacesContext fc;
+		peliculas = dameTodas();
+		return "/inicio.xhtml?faces-redirect=true";
+//		url="http://localhost:8081/inicio.xhtml";
+//		fc = FacesContext.getCurrentInstance();
+//		fc.getExternalContext().redirect(url);
+	}
 
 	
 	
