@@ -57,36 +57,36 @@
 	<br></br>
 	<br></br>
 	<br></br>
-	
+
 	<div>
 		<!-- Tabla Principal Que Carga Todo El Contenido Guardado -->
-		
-	<h:form id="formTable">
-		<p:dataTable id="table" var="Pelicula" lazy="true"
-			value="#{basicView.getPeliculas()}" rows="10" paginator="true"
-			paginatorTemplate="{CurrentPageReport} {FirstPageLink} 
+
+		<h:form id="formTable">
+			<p:dataTable id="table" var="Pelicula" lazy="true"
+				value="#{basicView.getPeliculas()}" rows="10" paginator="true"
+				paginatorTemplate="{CurrentPageReport} {FirstPageLink} 
 			{PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-			rowsPerPageTemplate="5,10,15" >
+				rowsPerPageTemplate="5,10,15">
 
-			<p:column headerText="Id">
-				<h:outputText value="#{Pelicula.id}" />
-			</p:column>
-			<p:column headerText="Nombre">
-				<h:outputText value="#{Pelicula.nombre}" />
-			</p:column>
-			<p:column headerText="Anio">
-				<h:outputText value="#{Pelicula.anio}" />
-			</p:column>
-			<p:column headerText="Premios">
-				<h:outputText value="#{Pelicula.premios}" />
-			</p:column>
+				<p:column headerText="Id">
+					<h:outputText value="#{Pelicula.id}" />
+				</p:column>
+				<p:column headerText="Nombre">
+					<h:outputText value="#{Pelicula.nombre}" />
+				</p:column>
+				<p:column headerText="Anio">
+					<h:outputText value="#{Pelicula.anio}" />
+				</p:column>
+				<p:column headerText="Premios">
+					<h:outputText value="#{Pelicula.premios}" />
+				</p:column>
 
 
 
-			<!-- Columna Con Opciones Para Actualizar y Borrar -->
-			<p:column headerText="Options">
+				<!-- Columna Con Opciones Para Actualizar y Borrar -->
+				<p:column headerText="Options">
 
-				<!-- Boton Para Editar Elemento por Nombre, Anio y Premios -->
+					<!-- Boton Para Editar Elemento por Nombre, Anio y Premios -->
 					<p:commandButton value="Editar" icon="fa fa-fw fa-edit"
 						update="dialogEdicion"
 						actionListener="#{basicView.recuperaInfo(Pelicula.id)}"
@@ -106,7 +106,7 @@
 
 							<p:commandButton
 								actionListener="#{basicView.actualiza(Pelicula.id)}"
-								value="Enviar" update="table"></p:commandButton>
+								value="EnviarEditar" update="table"></p:commandButton>
 						</h:panelGrid>
 					</p:dialog>
 
@@ -127,43 +127,45 @@
 						<p:commandButton value="No" type="button"
 							styleClass="ui-confirmdialog-no" icon="pi pi-times" />
 					</p:confirmDialog>
-					
-					
-					<!-- Boton Para Edicion Redirecciona a otra Pagina -->
+
+
+					<!-- Boton Para Vista Leer Redirecciona a otra Pagina -->
 					<p:commandButton action="#{basicView.redirecciona2()}"
-					value="ModoLectura" icon="fa-arrow-right" >
+						value="ModoLectura" icon="fa-arrow-right">
 					</p:commandButton>
-					
-					
+
+
 					<!-- Boton Añadir Archivo .PDF, .Exe, .Doc, etc -->
-					
+
 					<h:form enctype="multipart/form-data">
 						<p:growl id="mensajes" showDetail="true" />
-						
-						<p:fileUpload value="#{fileUploadView.file}" mode="simple" skinSimple="true" />
+
+						<p:fileUpload value="#{fileUploadView.file}" mode="simple"
+							skinSimple="true" />
 						<br></br>
-						
-						<p:commandButton value="Submit" ajax="false" action="#{fileUploadView.upload}" disabled="false" />
-					
+
+						<p:commandButton value="Enviar Archivo" ajax="false"
+							action="#{fileUploadView.upload}" disabled="false" />
+
 					</h:form>
-					
-					
-					
-					
 
-			</p:column>
 
-			<!-- Botones Para Pasar Pagina Adelante y Atras-->
-			<f:facet name="paginatorTopLeft">
-				<p:commandButton type="button" icon="pi pi-refresh" />
-			</f:facet>
 
-			<f:facet name="paginatorBottomRight">
-				<p:commandButton type="button" icon="pi pi-cloud-upload" />
-			</f:facet>
 
-		</p:dataTable>
-	</h:form>
+
+				</p:column>
+
+				<!-- Botones Para Pasar Pagina Adelante y Atras-->
+				<f:facet name="paginatorTopLeft">
+					<p:commandButton type="button" icon="pi pi-refresh" />
+				</f:facet>
+
+				<f:facet name="paginatorBottomRight">
+					<p:commandButton type="button" icon="pi pi-cloud-upload" />
+				</f:facet>
+
+			</p:dataTable>
+		</h:form>
 	</div>
 
 	<br></br>
@@ -171,7 +173,7 @@
 	<br></br>
 
 	<div id="botones">
-		<!-- Boton Para Crear Nuevo Elemento Por Id, Nombre, Anio y Premios -->
+		<!-- Boton Para Crear Nuevo Elemento Por Nombre, Anio y Premios -->
 		<p:commandButton type="button" value="Nuevo" icon="fa fa-plus"
 			onclick="PF('create').show();" />
 		<p:dialog header="Create Dialog" widgetVar="create" minHeight="20">
@@ -196,7 +198,7 @@
 			</h:form>
 		</p:dialog>
 
-  
+
 		<!-- Boton Para Buscar Elemento Por Id -->
 		<!--  
 		<p:commandButton type="button" value="Buscar" icon="fa fa-search"

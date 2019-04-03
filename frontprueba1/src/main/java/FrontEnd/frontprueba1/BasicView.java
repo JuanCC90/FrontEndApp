@@ -155,7 +155,8 @@ public class BasicView implements Serializable{
 	
 	public void recuperaInfo(long id) {
 		pelicula = new PeliculaDTO();
-		//pelicula = serviPeli.buscar(id);
+		rt = new RestTemplate();
+		HttpEntity <PeliculaDTO> request = new HttpEntity<>(pelicula);
 		this.nombre=pelicula.getNombre();
 		this.premios=pelicula.getPremios();
 		this.anio=pelicula.getAnio();
