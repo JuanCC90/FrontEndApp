@@ -135,6 +135,21 @@
 					</p:commandButton>
 					
 					
+					<!-- Boton Añadir Archivo .PDF, .Exe, .Doc, etc -->
+					
+					<h:form enctype="multipart/form-data">
+						<p:growl id="mensajes" showDetail="true" />
+						
+						<p:fileUpload value="#{fileUploadView.file}" mode="simple" skinSimple="true" />
+						<br></br>
+						
+						<p:commandButton value="Submit" ajax="false" action="#{fileUploadView.upload}" disabled="false" />
+					
+					</h:form>
+					
+					
+					
+					
 
 			</p:column>
 
