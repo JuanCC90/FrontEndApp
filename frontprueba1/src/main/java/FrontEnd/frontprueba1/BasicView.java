@@ -170,6 +170,13 @@ public class BasicView implements Serializable{
 //		fc = FacesContext.getCurrentInstance();
 //		fc.getExternalContext().redirect(url);
 	}
+	
+	public String redirecciona2() throws IOException {
+		String url;
+		FacesContext fc;
+		peliculas = dameTodas();
+		return "/detalle.xhtml?faces-redirect=true";
+	}
 
 	
 	

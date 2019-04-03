@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<h:head>
+	<title>Modo Detalle</title>
+	<link rel="stylesheet"
+		href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+		integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
+		crossorigin="anonymous" />
+</h:head>
+
+
+<h:body>
+	<h:form>
+		<p:carousel value="#{basicView.dameTodas()}" headerText="Lista" var="Pelicula"
+			itemStyle="height:200px;text-align:center" numVisible="1"
+			easing="easeOutBounce" style="width:350px" circular="true">
+			<h:panelGrid columns="2" style="width:55%"
+				columnClasses="label,value">
+				<!--  <f:facet name="header">
+					<p:graphicImage name="demo/images/car/#{car.brand}.gif" />
+				</f:facet>-->
+
+				<h:outputText value="Id:" /><h:outputText value="#{Pelicula.id}" />
+				<br></br>
+				<h:outputText value="Nombre" />
+				<h:outputText value="#{Pelicula.nombre}" />
+				<br></br>
+				<h:outputText value="Anio:" />
+				<h:outputText value="#{Pelicula.anio}"  />
+				<br></br>
+				<h:outputText value="Premios" />
+				<h:outputText value="#{Pelicula.premios}" />
+
+				
+			</h:panelGrid>
+		</p:carousel>
+
+
+
+	</h:form>
+
+
+</h:body>
+</html>
