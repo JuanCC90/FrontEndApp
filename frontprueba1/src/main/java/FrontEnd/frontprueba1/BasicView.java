@@ -157,6 +157,7 @@ public class BasicView implements Serializable{
 		pelicula = new PeliculaDTO();
 		rt = new RestTemplate();
 		HttpEntity <PeliculaDTO> request = new HttpEntity<>(pelicula);
+		pelicula = rt.getForEntity("http://localhost:8080/Pelicula/get/"+id, PeliculaDTO.class).getBody();
 		this.nombre=pelicula.getNombre();
 		this.premios=pelicula.getPremios();
 		this.anio=pelicula.getAnio();
