@@ -1,5 +1,7 @@
 package FrontEnd.frontprueba1;
 
+import java.io.File;
+
 public class PeliculaDTO {
 	
 	//Entorno:
@@ -7,6 +9,7 @@ public class PeliculaDTO {
 		private String nombre;
 		private String anio;
 		private long premios;
+		private File archivo;
 		
 		//Metodos-Funciones:
 		
@@ -41,6 +44,14 @@ public class PeliculaDTO {
 		
 		public void setPremios(long premios) {
 			this.premios=premios;
+		}
+		
+		public File getArchivo() {
+			return this.archivo;
+		}
+		
+		public void setArchivo(File archivo) {
+			this.archivo=archivo;
 		}
 		
 		
