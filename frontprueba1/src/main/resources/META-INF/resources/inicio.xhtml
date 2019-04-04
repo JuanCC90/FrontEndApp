@@ -47,10 +47,6 @@
 				<h:outputLabel for="premios">Premios Pelicula: </h:outputLabel>
 				<h:inputText value="#{basicView.premios}"
 					label="Ingrese premios Pelicula" id="premiosBusca"></h:inputText>
-				
-				<h:outputLabel for="archivo">Archivo Pelicula: </h:outputLabel>
-				<h:inputText value="#{basicView.archivo}"
-					label="Ingrese archivo Pelicula" id="archivoBusca"></h:inputText>
 
 				<p:commandButton actionListener="#{basicView.buscar()}"
 					value="Buscar" update=":formTable:table" />
@@ -83,9 +79,6 @@
 				</p:column>
 				<p:column headerText="Premios">
 					<h:outputText value="#{Pelicula.premios}" />
-				</p:column>
-				<p:column headerText="Archivo">
-					<h:outputText value="#{Pelicula.archivo}" />
 				</p:column>
 
 				<!-- Columna Que Mostrara el PDF Asociado al Elemento -->
@@ -195,9 +188,6 @@
 					<h:inputText value="#{basicView.premios}"
 						label="Ingrese premios Pelicula" required="true" id="premiosCrea"></h:inputText>
 						
-					<h:outputLabel for="archivo">Archivo Pelicula: </h:outputLabel>
-					<h:inputText value="#{basicView.archivo}"
-						label="Ingrese archivo Pelicula" id="archivoCrea"></h:inputText>
 
 					<p:commandButton actionListener="#{basicView.agregar()}"
 						value="Enviar" update=":formTable:table" />

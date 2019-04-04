@@ -9,7 +9,6 @@ public class PeliculaDTO {
 		private String nombre;
 		private String anio;
 		private long premios;
-		private File archivo;
 		
 		//Metodos-Funciones:
 		
@@ -46,13 +45,6 @@ public class PeliculaDTO {
 			this.premios=premios;
 		}
 		
-		public File getArchivo() {
-			return this.archivo;
-		}
-		
-		public void setArchivo(File archivo) {
-			this.archivo=archivo;
-		}
 		
 		
 

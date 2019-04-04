@@ -31,7 +31,6 @@ public class BasicView implements Serializable{
 	private String nombre;
 	private String anio;
 	private long premios;
-	private File archivo;
 	
 	private List<PeliculaDTO> peliculas;
 	
@@ -81,14 +80,6 @@ public class BasicView implements Serializable{
 		this.premios=premios;
 	}
 	
-	public File getArchivo() {
-		return this.archivo;
-	}
-	
-	public void setArchivo(File archivo) {
-		this.archivo=archivo;
-	}
-	
 	
 	public List<PeliculaDTO> dameTodas(){
 		peliculas = new ArrayList<>();
@@ -102,7 +93,7 @@ public class BasicView implements Serializable{
 		peliculas = new ArrayList<>();
 		rt = new RestTemplate();
 		ResponseEntity<PeliculaDTO[]> res =  rt.getForEntity("http://localhost:8080/Pelicula/busca?id="+id+"&nombre="+nombre+
-				"&anio="+anio+"&premios="+premios+"&archivo="+archivo, PeliculaDTO[].class);
+				"&anio="+anio+"&premios="+premios, PeliculaDTO[].class);
 		peliculas.addAll(Lists.newArrayList(res.getBody()));
 		return peliculas;
 		
@@ -123,7 +114,6 @@ public class BasicView implements Serializable{
 		pelicula.setNombre(nombre);
 		pelicula.setAnio(anio);
 		pelicula.setPremios(premios);
-		pelicula.setArchivo(archivo);
 		rt = new RestTemplate();
 		HttpEntity<PeliculaDTO> request = new HttpEntity<>(pelicula);
 		rt.postForObject("http://localhost:8080/Pelicula/post", request, PeliculaDTO[].class);
@@ -157,7 +147,6 @@ public class BasicView implements Serializable{
 		pelicula.setNombre(nombre);
 		pelicula.setAnio(anio);
 		pelicula.setPremios(premios);
-		pelicula.setArchivo(archivo);
 		rt = new RestTemplate();
 		HttpEntity<PeliculaDTO> request = new HttpEntity<>(pelicula);
 		rt.put("http://localhost:8080/Pelicula/put/"+id,request, PeliculaDTO.class);
@@ -176,7 +165,6 @@ public class BasicView implements Serializable{
 		this.nombre=pelicula.getNombre();
 		this.premios=pelicula.getPremios();
 		this.anio=pelicula.getAnio();
-		this.archivo=pelicula.getArchivo();
 	}
 	
 	public String redirecciona() throws IOException {
@@ -195,13 +183,13 @@ public class BasicView implements Serializable{
 		peliculas = dameTodas();
 		return "/detalle.xhtml?faces-redirect=true";
 	}
-	
+	/*
 	public void guardaArchivo() {
 		pelicula = new PeliculaDTO();
 		rt = new RestTemplate();
 		
 		
-	}
+	}*/
 	
 	
 	
