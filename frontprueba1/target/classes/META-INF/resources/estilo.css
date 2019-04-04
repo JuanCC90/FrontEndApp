@@ -9,11 +9,20 @@
 	text-align: center;
 }
 
+#busqueda{
+	position:center;
+	text-align:center;
+	left:50px;
+	bottom:0;
+	width:100%;
+}
+
 
 
 body {
 	background-color: AliceBlue;
 	position:center;
+	text-align:center;
 	
 }
 

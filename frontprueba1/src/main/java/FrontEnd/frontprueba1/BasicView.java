@@ -33,6 +33,7 @@ public class BasicView implements Serializable{
 	private long premios;
 	
 	private List<PeliculaDTO> peliculas;
+	private List<PeliculaDTO> peliculitas;
 	
 	private PeliculaDTO pelicula;
 
@@ -94,6 +95,16 @@ public class BasicView implements Serializable{
 		rt = new RestTemplate();
 		ResponseEntity<PeliculaDTO[]> res =  rt.getForEntity("http://localhost:8080/Pelicula/busca?id="+id+"&nombre="+nombre+
 				"&anio="+anio+"&premios="+premios, PeliculaDTO[].class);
+		peliculas.addAll(Lists.newArrayList(res.getBody()));
+		return peliculas;
+		
+	}//Fin Metodo
+	
+	
+	public List<PeliculaDTO> buscarId(long id) {
+		peliculas = new ArrayList<>();
+		rt = new RestTemplate();
+		ResponseEntity<PeliculaDTO[]> res =  rt.getForEntity("http://localhost:8080/Pelicula/busca?id="+id, PeliculaDTO[].class);
 		peliculas.addAll(Lists.newArrayList(res.getBody()));
 		return peliculas;
 		
@@ -180,16 +191,10 @@ public class BasicView implements Serializable{
 	public String redirecciona2() throws IOException {
 		String url;
 		FacesContext fc;
-		peliculas = dameTodas();
+		peliculitas = buscarId(id);
 		return "/detalle.xhtml?faces-redirect=true";
 	}
-	/*
-	public void guardaArchivo() {
-		pelicula = new PeliculaDTO();
-		rt = new RestTemplate();
-		
-		
-	}*/
+
 	
 	
 	
