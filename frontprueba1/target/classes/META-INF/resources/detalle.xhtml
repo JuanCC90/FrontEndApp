@@ -17,7 +17,7 @@
 
 <h:body>
 	<h:form>
-		<p:carousel value="#{basicView.Peliculitas)}" headerText="Lista" var="Peliculitas"
+		<p:carousel value="#{basicView.devuelveLeer()}" headerText="Lista" var="Pelicula"
 			itemStyle="height:150px;text-align:center" numVisible="1"
 			easing="easeOutBounce" style="width:350px" circular="true">
 			<h:panelGrid columns="3" style="width:75%"
@@ -25,16 +25,16 @@
 				
 
 				<h:outputText value="Id:" />
-				<p:inputText readonly="true" value="#{Peliculitas.id}" />
+				<p:inputText readonly="true" value="#{Pelicula.id}" />
 				<br></br>
 				<h:outputText value="Nombre" />
-				<h:outputText readonly="true" value="#{Peliculitas.nombre}" />
+				<h:outputText readonly="true" value="#{Pelicula.nombre}" />
 				<br></br>
 				<h:outputText value="Anio:" />
-				<h:outputText readonly="true" value="#{Peliculitas.anio}"  />
+				<h:outputText readonly="true" value="#{Pelicula.anio}"  />
 				<br></br>
 				<h:outputText value="Premios" />
-				<h:outputText readonly="true" value="#{Peliculitas.premios}" />
+				<h:outputText readonly="true" value="#{Pelicula.premios}" />
 
 				
 			</h:panelGrid>

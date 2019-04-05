@@ -48,7 +48,7 @@
 				<h:inputText value="#{basicView.premios}"
 					label="Ingrese premios Pelicula" id="premiosBusca"></h:inputText>
 
-				<p:commandButton actionListener="#{basicView.buscar()}"
+			<p:commandButton actionListener="#{basicView.buscar()}"
 					value="Buscar" update=":formTable:table" />
 			</h:panelGrid>
 		</h:form>
@@ -131,7 +131,7 @@
 
 
 					<!-- Boton Para Vista Leer Redirecciona a otra Pagina -->
-					<p:commandButton action="#{basicView.redirecciona2()}"
+					<p:commandButton action="#{basicView.redirecciona2(Pelicula.id)}"
 						value="ModoLectura" icon="fas fa-sign-out-alt">
 					</p:commandButton>
 

@@ -14,6 +14,7 @@ import javax.swing.JFileChooser;
 
 import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.client.RestTemplate;
 
 import com.google.common.collect.Lists;
@@ -96,8 +97,7 @@ public class BasicView implements Serializable{
 		ResponseEntity<PeliculaDTO[]> res =  rt.getForEntity("http://localhost:8080/Pelicula/busca?id="+id+"&nombre="+nombre+
 				"&anio="+anio+"&premios="+premios, PeliculaDTO[].class);
 		peliculas.addAll(Lists.newArrayList(res.getBody()));
-		return peliculas;
-		
+		return peliculas;	
 	}//Fin Metodo
 	
 	
@@ -188,13 +188,21 @@ public class BasicView implements Serializable{
 //		fc.getExternalContext().redirect(url);
 	}
 	
-	public String redirecciona2() throws IOException {
-		String url;
-		FacesContext fc;
-		peliculitas = buscarId(id);
+	
+	
+	
+	
+	public String redirecciona2(long id) throws IOException {
+		pelicula = new PeliculaDTO();
+		rt = new RestTemplate();
+		HttpEntity <PeliculaDTO> request = new HttpEntity<>(pelicula);
+		pelicula = rt.getForEntity("http://localhost:8080/Pelicula/get/"+id, PeliculaDTO.class).getBody();
 		return "/detalle.xhtml?faces-redirect=true";
 	}
 
+	public PeliculaDTO devuelveLeer(){
+		return pelicula;
+	}
 	
 	
 	
