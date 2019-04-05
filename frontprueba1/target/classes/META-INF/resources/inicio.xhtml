@@ -63,7 +63,7 @@
 
 		<h:form id="formTable">
 			<p:dataTable id="table" var="Pelicula" lazy="true"
-				value="#{basicView.getPeliculas()}" rows="10" paginator="true"
+				value="#{basicView.getPeliculas()}" rows="5" paginator="true"
 				paginatorTemplate="{CurrentPageReport} {FirstPageLink} 
 			{PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 				rowsPerPageTemplate="5,10,15">
@@ -106,7 +106,7 @@
 							<h:inputText value="#{basicView.premios}" id="PremiosEdita"></h:inputText>
 
 							<p:commandButton
-								actionListener="#{basicView.actualiza(Pelicula.id)}"
+								actionListener="#{basicView.actualiza(Peliculas.id)}"
 								value="EnviarEditar" update="table"></p:commandButton>
 						</h:panelGrid>
 					</p:dialog>

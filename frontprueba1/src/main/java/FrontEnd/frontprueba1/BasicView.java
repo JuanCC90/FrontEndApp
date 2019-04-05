@@ -43,9 +43,9 @@ public class BasicView implements Serializable{
 	
 	RestTemplate rt;
 	
+	
 	public List<PeliculaDTO> getPeliculas(){
-		 
-		return peliculas;
+		return peliculas; 
 	}
 	
 	
@@ -160,8 +160,7 @@ public class BasicView implements Serializable{
 		pelicula.setPremios(premios);
 		rt = new RestTemplate();
 		HttpEntity<PeliculaDTO> request = new HttpEntity<>(pelicula);
-		rt.put("http://localhost:8080/Pelicula/put/"+id,request, PeliculaDTO.class);
-		
+		rt.put("http://localhost:8080/Pelicula/put/"+id,request, PeliculaDTO.class);		
 		peliculas = new ArrayList<>();
 		peliculas = dameTodas();
 		return peliculas;	
