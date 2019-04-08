@@ -9,6 +9,7 @@ public class PeliculaDTO {
 		private String nombre;
 		private String anio;
 		private long premios;
+		private byte[] archivo;
 		
 		//Metodos-Funciones:
 		
@@ -46,6 +47,11 @@ public class PeliculaDTO {
 		}
 		
 		
-		
+		public void setArchivo(byte[] archivo) {
+			this.archivo=archivo;
+		}
 
+		public byte[] getArchivo() {
+			return this.archivo;
+		}
 }

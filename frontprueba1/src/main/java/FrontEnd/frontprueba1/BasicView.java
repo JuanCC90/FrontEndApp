@@ -32,6 +32,7 @@ public class BasicView implements Serializable{
 	private String nombre;
 	private String anio;
 	private long premios;
+	private byte[] archivo;
 	
 	private List<PeliculaDTO> peliculas;
 	private List<PeliculaDTO> peliculitas;
@@ -80,6 +81,14 @@ public class BasicView implements Serializable{
 	
 	public void setPremios(long premios) {
 		this.premios=premios;
+	}
+	
+	public void setArchivo(byte[] archivo) {
+		this.archivo=archivo;
+	}
+	
+	public byte[] getArchivo() {
+		return this.archivo;
 	}
 	
 	
