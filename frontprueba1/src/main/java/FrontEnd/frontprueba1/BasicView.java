@@ -1,6 +1,8 @@
 package FrontEnd.frontprueba1;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -255,7 +257,26 @@ public class BasicView implements Serializable{
 		}
 	}
 	
-	public void subeArchivo(FileUploadEvent event) {
+	
+	public void convierteDoc(String ruta) {
+		byte[] byteArray = null;
+		try {
+			InputStream inputStream = new FileInputStream(ruta);
+			String inputStreamToString = inputStream.toString();
+			byteArray = inputStreamToString.getBytes();
+			inputStream.close();
+		}catch(FileNotFoundException fnfe) {
+			System.out.println("Archivo no Encontrado: "+fnfe);
+		}catch(IOException ioe) {
+			System.out.println("IO Exception: "+ioe);
+		}
+		archivo = byteArray;
+		
+	}
+	
+	
+	
+/*	public void subeArchivo(FileUploadEvent event) {
 		
 		try {
 			copyFile(event.getFile().getFileName(),event.getFile().getInputstream());
@@ -264,7 +285,7 @@ public class BasicView implements Serializable{
 		}catch(IOException ioe) {
 			ioe.printStackTrace();
 		}
-	}
+	}*/
 	
 	
 	
