@@ -196,10 +196,6 @@ public class BasicView implements Serializable{
 //		fc.getExternalContext().redirect(url);
 	}
 	
-	
-	
-	
-	
 	public String redirecciona2(long id) throws IOException {
 		pelicula = new PeliculaDTO();
 		rt = new RestTemplate();
@@ -212,6 +208,17 @@ public class BasicView implements Serializable{
 		return pelicula;
 	}
 	
+	public void subeArchivo(byte [] archivo) {
+		pelicula = new PeliculaDTO();
+		rt = new RestTemplate();
+		pelicula.setNombre(nombre);
+		pelicula.setAnio(anio);
+		pelicula.setPremios(premios);
+		pelicula.setArchivo(archivo);
+		HttpEntity <PeliculaDTO> request = new HttpEntity<>(pelicula);
+		pelicula = rt.postForEntity("http://localhost:8080/Pelicula/Enviar/"+archivo, request, PeliculaDTO.class).getBody();
+		
+	}
 	
 	
 	
