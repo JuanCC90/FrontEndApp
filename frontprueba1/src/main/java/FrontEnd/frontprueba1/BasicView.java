@@ -285,8 +285,8 @@ public class BasicView implements Serializable{
 		}catch(IOException ioe) {
 			ioe.printStackTrace();
 		}
-	}*/
+	}
 	
-	
+*/	
 	
 }
