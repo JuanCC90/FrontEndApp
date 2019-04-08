@@ -1,17 +1,25 @@
 package FrontEnd.frontprueba1;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.ManagedBean;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.swing.JFileChooser;
 
+import org.primefaces.event.FileUploadEvent;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,7 +29,7 @@ import com.google.common.collect.Lists;
 
 import lombok.Data;
 
-@ManagedBean
+@ManagedBean(value="basicView")
 @SessionScoped
 @Data
 public class BasicView implements Serializable{
@@ -39,6 +47,7 @@ public class BasicView implements Serializable{
 	
 	private PeliculaDTO pelicula;
 
+	private String rutaArchivos = ".//src//main//resources//files//";
 	
 	//private PeliculaService serviPeli;
 	
@@ -208,7 +217,7 @@ public class BasicView implements Serializable{
 		return pelicula;
 	}
 	
-	public void subeArchivo(byte [] archivo) {
+/*	public void subeArchivo(byte [] archivo) {
 		pelicula = new PeliculaDTO();
 		rt = new RestTemplate();
 		pelicula.setNombre(nombre);
@@ -218,6 +227,43 @@ public class BasicView implements Serializable{
 		HttpEntity <PeliculaDTO> request = new HttpEntity<>(pelicula);
 		pelicula = rt.postForEntity("http://localhost:8080/Pelicula/Enviar/"+archivo, request, PeliculaDTO.class).getBody();
 		
+	}*/
+	
+	
+	public void copiaArchivo(String fileName, InputStream in) {
+		
+		try {
+			OutputStream out = new FileOutputStream(new File(rutaArchivos+fileName));
+			int read = 0;
+			byte[] bytes = new byte[10024];
+			while((read= in.read(bytes)) != -1) {
+				out.write(bytes, 0, read);
+			}
+			in.close();
+			out.flush();
+			out.close();
+			System.out.println("Archivo creado correctamente");
+			DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH_mm_ss");
+			Date date = new Date();
+			String ruta1 = rutaArchivos + fileName;
+			String ruta2 = rutaArchivos + dateFormat.format(date)+"-"+fileName;
+			System.out.println("Archivo: "+ruta1+" Renombrado a: "+ruta2);
+			File archivo = new File(ruta1);
+			archivo.renameTo(new File(ruta2));			
+		}catch(IOException ioe) {
+			System.out.println(ioe.getMessage());
+		}
+	}
+	
+	public void subeArchivo(FileUploadEvent event) {
+		
+		try {
+			copyFile(event.getFile().getFileName(),event.getFile().getInputstream());
+			FacesMessage message = new FacesMessage("Archivo subido correctamente");
+			FacesContext.getCurrentInstance().addMessage(null, message);
+		}catch(IOException ioe) {
+			ioe.printStackTrace();
+		}
 	}
 	
 	
