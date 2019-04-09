@@ -42,6 +42,7 @@ public class BasicView implements Serializable{
 	private String nombre;
 	private String anio;
 	private long premios;
+	private File documento;
 	private byte[] archivo;
 	
 	private List<PeliculaDTO> peliculas;
@@ -219,6 +220,58 @@ public class BasicView implements Serializable{
 		return pelicula;
 	}
 	
+	public void leerBytesdeArchivo(File documento, long id) {
+		
+		FileInputStream fileInputStream = null;
+		byte[] archivo = null;
+		try {
+			File doc = new File(documento.getAbsolutePath());
+			archivo = new byte[(int) doc.length()];
+			fileInputStream = new FileInputStream(doc);
+			fileInputStream.read(archivo);
+						
+		}catch(IOException ioe) {
+			ioe.printStackTrace();
+		}finally {
+			if(fileInputStream != null) {
+				try {
+					fileInputStream.close();
+				}catch(IOException ioe2) {
+					ioe2.printStackTrace();
+				}
+			}
+		}
+		
+		pelicula = new PeliculaDTO();
+		rt = new RestTemplate();
+		HttpEntity <PeliculaDTO> request = new HttpEntity<>(pelicula);
+		pelicula = rt.getForEntity("http://localhost:8080/Pelicula/get/"+id, PeliculaDTO.class).getBody();
+		pelicula.setArchivo(archivo);
+		
+		
+		
+		
+		
+		
+	}
+	
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 /*	public void subeArchivo(byte [] archivo) {
 		pelicula = new PeliculaDTO();
 		rt = new RestTemplate();
@@ -232,6 +285,25 @@ public class BasicView implements Serializable{
 	}*/
 	
 	
+
+	/*
+	public void convierteDoc(byte[] archivo) {
+		byte[] byteArray = null;
+		try {
+			InputStream inputStream = new FileInputStream(archivo);
+			String inputStreamToString = inputStream.toString();
+			byteArray = inputStreamToString.getBytes();
+			inputStream.close();
+		}catch(FileNotFoundException fnfe) {
+			System.out.println("Archivo no Encontrado: "+fnfe);
+		}catch(IOException ioe) {
+			System.out.println("IO Exception: "+ioe);
+		}
+		archivo = byteArray;	
+	}
+	*/
+	
+	/*
 	public void copiaArchivo(String fileName, InputStream in) {
 		
 		try {
@@ -256,23 +328,7 @@ public class BasicView implements Serializable{
 			System.out.println(ioe.getMessage());
 		}
 	}
-	
-	
-	public void convierteDoc(String ruta) {
-		byte[] byteArray = null;
-		try {
-			InputStream inputStream = new FileInputStream(ruta);
-			String inputStreamToString = inputStream.toString();
-			byteArray = inputStreamToString.getBytes();
-			inputStream.close();
-		}catch(FileNotFoundException fnfe) {
-			System.out.println("Archivo no Encontrado: "+fnfe);
-		}catch(IOException ioe) {
-			System.out.println("IO Exception: "+ioe);
-		}
-		archivo = byteArray;
-		
-	}
+	*/
 	
 	
 	

@@ -144,20 +144,15 @@
 					<h:form enctype="multipart/form-data">
 						<p:growl id="mensajes" showDetail="true" />
 
-						<p:fileUpload value="#{basicView.archivo}" mode="simple"
+						<p:fileUpload value="#{basicView.documento}" mode="simple"
 							skinSimple="true" />
 						<br></br>
 
 						<p:commandButton value="Submit" ajax="false"
-							 disabled="false" />
+							 disabled="false" update="table" action="#{basicView.leerBytesdeArchivo(basicView.documento)}"/>
 
 					</h:form>
-				<!--  	
-					<h:form>
-					<p:fileupload fileUploadListener="#{basicView.subeArchivo}" allowTypes="/(\.|\/)(gif|jpe?g|png|pdf|doc|txt)$/"
-						sizeLimit="100000000" update="table"></p:fileupload>
-					</h:form>
-				-->	
+			
 				</p:column>
 
 				<!-- Botones Para Pasar Pagina Adelante y Atras-->
