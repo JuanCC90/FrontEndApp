@@ -1,30 +1,19 @@
 package FrontEnd.frontprueba1;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.io.Serializable;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
+import java.nio.file.Files;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.annotation.ManagedBean;
-import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
-import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
-import javax.swing.JFileChooser;
 
-import org.primefaces.event.FileUploadEvent;
+import org.primefaces.model.UploadedFile;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.client.RestTemplate;
 
 import com.google.common.collect.Lists;
@@ -41,13 +30,18 @@ public class BasicView implements Serializable {
 	private String nombre;
 	private String anio;
 	private long premios;
-	private File documento;
-	private byte[] archivo;
+	public UploadedFile documento;
+	
 
+	
+	private byte[] archivo;
+	
 	private List<PeliculaDTO> peliculas;
 	private List<PeliculaDTO> peliculitas;
 
 	private PeliculaDTO pelicula;
+	
+	public PeliculaDTO peliArchivo;
 
 	private String rutaArchivos = ".//src//main//resources//files//";
 
@@ -97,6 +91,14 @@ public class BasicView implements Serializable {
 
 	public byte[] getArchivo() {
 		return this.archivo;
+	}
+	
+	public void setDocumento(UploadedFile doc) {
+		this.documento = doc;
+	}
+	
+	public UploadedFile getDocumento() {
+		return this.documento;
 	}
 
 	public List<PeliculaDTO> dameTodas() {
@@ -182,7 +184,7 @@ public class BasicView implements Serializable {
 		this.anio = pelicula.getAnio();
 	}
 
-	public String redirecciona() throws IOException {
+	public String redirecciona1() throws IOException {
 		String url;
 		FacesContext fc;
 		peliculas = dameTodas();
@@ -204,26 +206,34 @@ public class BasicView implements Serializable {
 		return pelicula;
 	}
 
-	public void convierteArchivo(File documento) {
-		try {
-			File fichero = new File(documento.getAbsolutePath());
-			FileInputStream ficheroStream = new FileInputStream(fichero);
-			byte archivo[] = new byte[(int) fichero.length()];
-			ficheroStream.read(archivo);
-		} catch (IOException ioe) {
-			ioe.printStackTrace();
-		}
-		rt = new RestTemplate();
+	public void convierteArchivo(long id) {
+		byte[] archivo = documento.getContents();
+		rt = new RestTemplate();	
+		pelicula = rt.getForEntity("http://localhost:8080/Pelicula/get/" + id, PeliculaDTO.class).getBody();
+		pelicula.setArchivo(archivo);
 		HttpEntity<PeliculaDTO> request = new HttpEntity<>(pelicula);
-		rt.put("http://localhost:8080/Pelicula/Enviar/"+archivo, request, PeliculaDTO.class);
-		
+		rt.put("http://localhost:8080/Pelicula/put/" + id, request, PeliculaDTO.class);
 	}
 
 	
+	public String redirecciona3(long id) throws IOException {
+		pelicula = new PeliculaDTO();
+		rt = new RestTemplate();
+		HttpEntity<PeliculaDTO> request = new HttpEntity<>(pelicula);
+		pelicula = rt.getForEntity("http://localhost:8080/Pelicula/get/" + id, PeliculaDTO.class).getBody();
+		peliArchivo=pelicula;
+		return "/cargaArchivo.xhtml?faces-redirect=true";
+	}
 	
 	
-	
-	
+	public String muestraArchivo() {
+		String cadena;
+		cadena = "";
+		for(int i=0;i<peliArchivo.getArchivo().length;i++) {
+			cadena +=i;
+		}
+		return cadena;
+	}
 	
 	
 	

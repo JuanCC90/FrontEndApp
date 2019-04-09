@@ -1,3 +1,4 @@
+
 package FrontEnd.frontprueba1;
 
 import javax.annotation.ManagedBean;
@@ -9,7 +10,7 @@ import org.primefaces.model.UploadedFile;
 
 @ManagedBean
 public class FileUploadView {
-
+/*
 	private UploadedFile file;
 	
 	public UploadedFile getFile() {
@@ -18,7 +19,7 @@ public class FileUploadView {
 	
 	public void setFile(UploadedFile file) {
 		this.file=file;
-	}
+	}*/
 	/*
 	public void upload() {
 		if(file != null) {
@@ -32,5 +33,8 @@ public class FileUploadView {
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 	}
 	
+
 	*/
+
 }
+

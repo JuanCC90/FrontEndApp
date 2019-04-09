@@ -29,7 +29,7 @@
 	<br></br>
 
 	<div id="busqueda">
-		<h:form>
+		<h:form >
 			<h:panelGrid columns="4" cellpadding="2">
 
 				<h:outputLabel for="id">Id Pelicula: </h:outputLabel>
@@ -48,7 +48,7 @@
 				<h:inputText value="#{basicView.premios}"
 					label="Ingrese premios Pelicula" id="premiosBusca"></h:inputText>
 
-			<p:commandButton actionListener="#{basicView.buscar()}"
+				<p:commandButton actionListener="#{basicView.buscar()}"
 					value="Buscar" update=":formTable:table" />
 			</h:panelGrid>
 		</h:form>
@@ -61,7 +61,7 @@
 	<div>
 		<!-- Tabla Principal Que Carga Todo El Contenido Guardado -->
 
-		<h:form id="formTable">
+		<h:form id="formTable" enctype="multipart/form-data">
 			<p:dataTable id="table" var="Pelicula" lazy="true"
 				value="#{basicView.getPeliculas()}" rows="5" paginator="true"
 				paginatorTemplate="{CurrentPageReport} {FirstPageLink} 
@@ -82,10 +82,12 @@
 				</p:column>
 				<p:column headerText="Archivos">
 					<h:outputText value="#{Pelicula.archivo}" />
+					<p:commandButton action="#{basicView.redirecciona3(Pelicula.id)}"
+						value="Mostrar" icon="fas fa-sign-out-alt">
+					</p:commandButton>
 				</p:column>
 
-				<!-- Columna Que Mostrara el PDF Asociado al Elemento -->
-				
+
 
 				<!-- Columna Con Opciones Para Actualizar y Borrar -->
 				<p:column headerText="Options">
@@ -132,27 +134,22 @@
 							styleClass="ui-confirmdialog-no" icon="pi pi-times" />
 					</p:confirmDialog>
 
-
 					<!-- Boton Para Vista Leer Redirecciona a otra Pagina -->
 					<p:commandButton action="#{basicView.redirecciona2(Pelicula.id)}"
 						value="ModoLectura" icon="fas fa-sign-out-alt">
 					</p:commandButton>
-
-
-					<!-- Boton Añadir Archivo .PDF, .Exe, .Doc, etc -->
-					  
-					<h:form enctype="multipart/form-data">
-						<p:growl id="mensajes" showDetail="true" />
-
+					
 						<p:fileUpload value="#{basicView.documento}" mode="simple"
 							skinSimple="true" />
 						<br></br>
 
-						<p:commandButton value="Submit" ajax="false"
-							 disabled="false" update="table" action="#{basicView.convierteArchivo(basicView.documento)}"/>
+						<p:commandButton value="Submit" ajax="false" disabled="false"
+							action="#{basicView.convierteArchivo(Pelicula.id)}" />
 
-					</h:form>
-			
+					
+
+
+
 				</p:column>
 
 				<!-- Botones Para Pasar Pagina Adelante y Atras-->
@@ -167,6 +164,7 @@
 			</p:dataTable>
 		</h:form>
 	</div>
+
 
 	<br></br>
 	<br></br>
@@ -191,7 +189,7 @@
 					<h:outputLabel for="premios">Premios Pelicula: </h:outputLabel>
 					<h:inputText value="#{basicView.premios}"
 						label="Ingrese premios Pelicula" required="true" id="premiosCrea"></h:inputText>
-						
+
 
 					<p:commandButton actionListener="#{basicView.agregar()}"
 						value="Enviar" update=":formTable:table" />
