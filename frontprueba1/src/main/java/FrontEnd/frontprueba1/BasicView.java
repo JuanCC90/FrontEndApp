@@ -213,15 +213,20 @@ public class BasicView implements Serializable {
 		} catch (IOException ioe) {
 			ioe.printStackTrace();
 		}
-		
-		pelicula = new PeliculaDTO();
-		pelicula.setArchivo(archivo);
 		rt = new RestTemplate();
 		HttpEntity<PeliculaDTO> request = new HttpEntity<>(pelicula);
 		rt.put("http://localhost:8080/Pelicula/Enviar/"+archivo, request, PeliculaDTO.class);
 		
 	}
 
+	
+	
+	
+	
+	
+	
+	
+	
 	/*
 	 * public void leerBytesdeArchivo(File documento, long id) {
 	 * 
