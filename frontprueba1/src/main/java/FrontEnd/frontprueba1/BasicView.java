@@ -1,6 +1,7 @@
 package FrontEnd.frontprueba1;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.Serializable;
 import java.nio.file.Files;
@@ -14,6 +15,7 @@ import javax.annotation.ManagedBean;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
 
+import org.primefaces.model.StreamedContent;
 import org.primefaces.model.UploadedFile;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
@@ -38,6 +40,8 @@ public class BasicView implements Serializable {
 	
 	private byte[] archivo;
 	public byte[] otroArchivo;
+	
+	private StreamedContent file;
 	
 	private List<PeliculaDTO> peliculas;
 	private List<PeliculaDTO> peliculitas;
@@ -225,7 +229,21 @@ public class BasicView implements Serializable {
 		pelicula.setArchivo(archivo);
 		HttpEntity<PeliculaDTO> request = new HttpEntity<>(pelicula);
 		rt.put("http://localhost:8080/Pelicula/put/" + id, request, PeliculaDTO.class);
+		otroArchivo = pelicula.getArchivo();
+		try {
+			FileOutputStream stream = new FileOutputStream("/frontprueba1/src/main/resources/files/prueba.pdf");
+			stream.write(otroArchivo);
+		}catch(IOException ioe) {
+			ioe.printStackTrace();
+		}
+		
 	}
+	
+	
+
+	
+	
+	
 
 	
 	public String redirecciona3(long id) throws IOException {
@@ -236,10 +254,22 @@ public class BasicView implements Serializable {
 		return "/cargaArchivo.xhtml?faces-redirect=true";
 	}
 	
+/*	
+	public void devuelveFichero(long id) {
+		pelicula = new PeliculaDTO();
+		rt = new RestTemplate();	
+		pelicula = rt.getForEntity("http://localhost:8080/Pelicula/get/" + id, PeliculaDTO.class).getBody();
+		otroArchivo = pelicula.getArchivo();
+		try {
+			FileOutputStream stream = new FileOutputStream("/frontprueba1/src/main/resources/files");
+			stream.write(otroArchivo);
+		}catch(IOException ioe) {
+			ioe.printStackTrace();
+		}
+		
+	}
 	
-	
-	
-	
+*/
 	
 	
 	/*

@@ -82,9 +82,8 @@
 				</p:column>
 				<p:column headerText="Archivos">
 					<h:outputText value="#{Pelicula.archivo}" />
-					<p:commandButton action="#{basicView.redirecciona3(Pelicula.id)}"
-						value="Mostrar" icon="fas fa-sign-out-alt">
-					</p:commandButton>
+					
+					
 				</p:column>
 
 
@@ -197,6 +196,29 @@
 				</h:panelGrid>
 			</h:form>
 		</p:dialog>
+		
+		
+		
+		<script type="text/javascript">
+						// <![CDATA[
+							function start(){
+								PF('statusDialog').show();
+							}
+							
+							function stop(){
+								PF('statusDialog').hide();
+							}
+							//]]>	
+					</script>
+					<p:dialog modal="true" widgetVar="statusDialog" header="Status" draggable="false" closable="false" resizable="false">
+						<p:fileUpload name="/frontprueba1/src/main/resources/files/prueba.pdf" />
+					</p:dialog>
+					<h:form>
+						<p:commandButton value="Descargar" ajax="false" onclick="Primefaces.monitorDownload(start,stop);" icon="pi pi-arrow-down">
+							<p:fileDownload value="#{fileDownloadView.file}" />
+						</p:commandButton>
+					</h:form>
+					
 
 
 		<!-- Boton Para Buscar Elemento Por Id -->
