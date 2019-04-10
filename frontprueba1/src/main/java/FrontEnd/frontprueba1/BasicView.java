@@ -7,6 +7,9 @@ import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 
+
+
+
 import javax.annotation.ManagedBean;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
@@ -31,10 +34,10 @@ public class BasicView implements Serializable {
 	private String anio;
 	private long premios;
 	public UploadedFile documento;
-	
-
+	public String cadena;
 	
 	private byte[] archivo;
+	public byte[] otroArchivo;
 	
 	private List<PeliculaDTO> peliculas;
 	private List<PeliculaDTO> peliculitas;
@@ -100,6 +103,15 @@ public class BasicView implements Serializable {
 	public UploadedFile getDocumento() {
 		return this.documento;
 	}
+	
+	public byte[] getOtroArchivo() {
+		return this.otroArchivo;
+	}
+	
+	public void setOtroArchivo(byte []archivo) {
+		this.otroArchivo=archivo;
+	}
+	
 
 	public List<PeliculaDTO> dameTodas() {
 		peliculas = new ArrayList<>();
@@ -219,23 +231,29 @@ public class BasicView implements Serializable {
 	public String redirecciona3(long id) throws IOException {
 		pelicula = new PeliculaDTO();
 		rt = new RestTemplate();
-		HttpEntity<PeliculaDTO> request = new HttpEntity<>(pelicula);
 		pelicula = rt.getForEntity("http://localhost:8080/Pelicula/get/" + id, PeliculaDTO.class).getBody();
-		peliArchivo=pelicula;
+		otroArchivo = pelicula.getArchivo();
 		return "/cargaArchivo.xhtml?faces-redirect=true";
 	}
 	
 	
-	public String muestraArchivo() {
-		String cadena;
-		cadena = "";
-		for(int i=0;i<peliArchivo.getArchivo().length;i++) {
-			cadena +=i;
+	
+	
+	
+	
+	
+	/*
+	public void muestraArchivo() {
+		cadena="";
+
+		for(int i=0;i<otroArchivo.length;i++) {
+			cadena +=otroArchivo[i];
 		}
-		return cadena;
-	}
-	
-	
+		
+		
+		}
+	*/
+
 	
 	/*
 	 * public void leerBytesdeArchivo(File documento, long id) {
@@ -299,6 +317,13 @@ public class BasicView implements Serializable {
 	 * FacesMessage message = new FacesMessage("Archivo subido correctamente");
 	 * FacesContext.getCurrentInstance().addMessage(null, message);
 	 * }catch(IOException ioe) { ioe.printStackTrace(); } }
+	 * 
+	 * 
+	 * public String getString(){
+	   System.Text.ASCIIEncoding codificador = new System.Text.ASCIIEncoding();
+	   return codificador.GetString(otroArchivo);
+		}
+	 * 
 	 * 
 	 */
 

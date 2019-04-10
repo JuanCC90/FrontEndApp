@@ -14,8 +14,15 @@
 		crossorigin="anonymous" />
 </h:head>
 <h:body>
-	<p:commandButton actionListener="#{basicView.muestraArchivo()}"
+
+	<h2>Archivo</h2>
+	<p:media value="#{basicView.otroArchivo}" width="100%" height="300px">
+		El navegador no puede mostrar pdf <h:outputLink value="#{basicView.otroArchivo}">Click</h:outputLink> Para descargar Archivo.
+	</p:media>
+	
+	<!--  <p:commandButton actionListener="#{basicView.muestraArchivo()}"
 						value="Mostrar" />
+	 <h:outputText value="Cadena de Texto: #{basicView.cadena}"></h:outputText>-->
 
 
 </h:body>
