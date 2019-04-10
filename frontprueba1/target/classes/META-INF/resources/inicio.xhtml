@@ -82,7 +82,26 @@
 				</p:column>
 				<p:column headerText="Archivos">
 					<h:outputText value="#{Pelicula.archivo}" />
-					
+	<!--  			<script type="text/javascript">
+						// <![CDATA[
+							function start(){
+								PF('statusDialog').show();
+							}
+							
+							function stop(){
+								PF('statusDialog').hide();
+							}
+							//]]>	
+					</script>
+					<p:dialog modal="true" widgetVar="statusDialog" header="Status" draggable="false" closable="false" resizable="false">
+						<p:fileUpload name="C:\Users\Admin\Desktop\prueba.pdf" />
+					</p:dialog>-->
+					<h:form>
+						<p:commandButton value="Descargar" ajax="false" onclick="Primefaces.monitorDownload(start,stop);" icon="pi pi-arrow-down">
+							<p:fileDownload value="#{basicView.descargar()}" />
+						</p:commandButton>
+					</h:form>
+				
 					
 				</p:column>
 
@@ -199,25 +218,6 @@
 		
 		
 		
-		<script type="text/javascript">
-						// <![CDATA[
-							function start(){
-								PF('statusDialog').show();
-							}
-							
-							function stop(){
-								PF('statusDialog').hide();
-							}
-							//]]>	
-					</script>
-					<p:dialog modal="true" widgetVar="statusDialog" header="Status" draggable="false" closable="false" resizable="false">
-						<p:fileUpload name="/frontprueba1/src/main/resources/files/prueba.pdf" />
-					</p:dialog>
-					<h:form>
-						<p:commandButton value="Descargar" ajax="false" onclick="Primefaces.monitorDownload(start,stop);" icon="pi pi-arrow-down">
-							<p:fileDownload value="#{fileDownloadView.file}" />
-						</p:commandButton>
-					</h:form>
 					
 
 

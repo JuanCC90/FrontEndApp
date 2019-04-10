@@ -1,20 +1,22 @@
 package FrontEnd.frontprueba1;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.io.Serializable;
 import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 
-
-
-
 import javax.annotation.ManagedBean;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpServletResponse;
 
+import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 import org.primefaces.model.UploadedFile;
 import org.springframework.http.HttpEntity;
@@ -37,17 +39,17 @@ public class BasicView implements Serializable {
 	private long premios;
 	public UploadedFile documento;
 	public String cadena;
-	
+
 	private byte[] archivo;
 	public byte[] otroArchivo;
-	
+
 	private StreamedContent file;
-	
+
 	private List<PeliculaDTO> peliculas;
 	private List<PeliculaDTO> peliculitas;
 
 	private PeliculaDTO pelicula;
-	
+
 	public PeliculaDTO peliArchivo;
 
 	private String rutaArchivos = ".//src//main//resources//files//";
@@ -99,23 +101,22 @@ public class BasicView implements Serializable {
 	public byte[] getArchivo() {
 		return this.archivo;
 	}
-	
+
 	public void setDocumento(UploadedFile doc) {
 		this.documento = doc;
 	}
-	
+
 	public UploadedFile getDocumento() {
 		return this.documento;
 	}
-	
+
 	public byte[] getOtroArchivo() {
 		return this.otroArchivo;
 	}
-	
-	public void setOtroArchivo(byte []archivo) {
-		this.otroArchivo=archivo;
+
+	public void setOtroArchivo(byte[] archivo) {
+		this.otroArchivo = archivo;
 	}
-	
 
 	public List<PeliculaDTO> dameTodas() {
 		peliculas = new ArrayList<>();
@@ -224,28 +225,55 @@ public class BasicView implements Serializable {
 
 	public void convierteArchivo(long id) {
 		byte[] archivo = documento.getContents();
-		rt = new RestTemplate();	
+		rt = new RestTemplate();
 		pelicula = rt.getForEntity("http://localhost:8080/Pelicula/get/" + id, PeliculaDTO.class).getBody();
 		pelicula.setArchivo(archivo);
 		HttpEntity<PeliculaDTO> request = new HttpEntity<>(pelicula);
 		rt.put("http://localhost:8080/Pelicula/put/" + id, request, PeliculaDTO.class);
 		otroArchivo = pelicula.getArchivo();
+		/*
+		 * try { FileOutputStream stream = new
+		 * FileOutputStream("C:\\Users\\Admin\\Desktop\\prueba.pdf");
+		 * stream.write(otroArchivo); }catch(IOException ioe) { ioe.printStackTrace(); }
+		 */
+
+	}
+
+	public void descargaArchivo() {
+		InputStream stream = FacesContext.getCurrentInstance().getExternalContext()
+				.getResourceAsStream("C:\\Users\\Admin\\Desktop\\prueba.pdf");
+		file = new DefaultStreamedContent(stream, "file/pdf", "prueba.pdf");
+	}
+
+	public StreamedContent getFile() {
+		return file;
+	}
+
+	public void descargar() {
 		try {
-			FileOutputStream stream = new FileOutputStream("/frontprueba1/src/main/resources/files/prueba.pdf");
-			stream.write(otroArchivo);
-		}catch(IOException ioe) {
+			File file = new File("file.pdf");
+			FacesContext facesContext = FacesContext.getCurrentInstance();
+			HttpServletResponse response = (HttpServletResponse) facesContext.getExternalContext().getResponse();
+			response.reset();
+			response.setHeader("Content-Type", "application/octet-stream");
+			response.setHeader("Content-Dispositon", "attachment;filename=file.pdf");
+			OutputStream responseOutputStream = response.getOutputStream();
+			InputStream fileInputStream = new FileInputStream(file);
+			byte[] bytesBuffer = otroArchivo;
+			int bytesRead;
+			while ((bytesRead = fileInputStream.read(bytesBuffer)) > 0) {
+				responseOutputStream.write(bytesBuffer, 0, bytesRead);
+			}
+			responseOutputStream.flush();
+			fileInputStream.close();
+			responseOutputStream.close();
+			facesContext.responseComplete();
+		} catch (IOException ioe) {
 			ioe.printStackTrace();
 		}
-		
+
 	}
-	
-	
 
-	
-	
-	
-
-	
 	public String redirecciona3(long id) throws IOException {
 		pelicula = new PeliculaDTO();
 		rt = new RestTemplate();
@@ -253,38 +281,29 @@ public class BasicView implements Serializable {
 		otroArchivo = pelicula.getArchivo();
 		return "/cargaArchivo.xhtml?faces-redirect=true";
 	}
-	
-/*	
-	public void devuelveFichero(long id) {
-		pelicula = new PeliculaDTO();
-		rt = new RestTemplate();	
-		pelicula = rt.getForEntity("http://localhost:8080/Pelicula/get/" + id, PeliculaDTO.class).getBody();
-		otroArchivo = pelicula.getArchivo();
-		try {
-			FileOutputStream stream = new FileOutputStream("/frontprueba1/src/main/resources/files");
-			stream.write(otroArchivo);
-		}catch(IOException ioe) {
-			ioe.printStackTrace();
-		}
-		
-	}
-	
-*/
-	
-	
+
 	/*
-	public void muestraArchivo() {
-		cadena="";
+	 * public void devuelveFichero(long id) { pelicula = new PeliculaDTO(); rt = new
+	 * RestTemplate(); pelicula =
+	 * rt.getForEntity("http://localhost:8080/Pelicula/get/" + id,
+	 * PeliculaDTO.class).getBody(); otroArchivo = pelicula.getArchivo(); try {
+	 * FileOutputStream stream = new
+	 * FileOutputStream("/frontprueba1/src/main/resources/files");
+	 * stream.write(otroArchivo); }catch(IOException ioe) { ioe.printStackTrace(); }
+	 * 
+	 * }
+	 * 
+	 */
 
-		for(int i=0;i<otroArchivo.length;i++) {
-			cadena +=otroArchivo[i];
-		}
-		
-		
-		}
-	*/
+	/*
+	 * public void muestraArchivo() { cadena="";
+	 * 
+	 * for(int i=0;i<otroArchivo.length;i++) { cadena +=otroArchivo[i]; }
+	 * 
+	 * 
+	 * }
+	 */
 
-	
 	/*
 	 * public void leerBytesdeArchivo(File documento, long id) {
 	 * 
@@ -349,10 +368,8 @@ public class BasicView implements Serializable {
 	 * }catch(IOException ioe) { ioe.printStackTrace(); } }
 	 * 
 	 * 
-	 * public String getString(){
-	   System.Text.ASCIIEncoding codificador = new System.Text.ASCIIEncoding();
-	   return codificador.GetString(otroArchivo);
-		}
+	 * public String getString(){ System.Text.ASCIIEncoding codificador = new
+	 * System.Text.ASCIIEncoding(); return codificador.GetString(otroArchivo); }
 	 * 
 	 * 
 	 */

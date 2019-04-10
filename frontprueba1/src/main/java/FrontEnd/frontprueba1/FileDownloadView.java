@@ -2,7 +2,7 @@ package FrontEnd.frontprueba1;
 
 import java.io.InputStream;
 
-import javax.annotation.ManagedBean;
+import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
 
 import org.primefaces.model.DefaultStreamedContent;
@@ -15,14 +15,12 @@ public class FileDownloadView {
 	
 	
 	public FileDownloadView() {
-		InputStream stream  = FacesContext.getCurrentInstance().getExternalContext().getResourceAsStream("/frontprueba1/src/main/resources/files/prueba.pdf");
+		InputStream stream  = FacesContext.getCurrentInstance().getExternalContext().getResourceAsStream("C:\\Users\\Admin\\Desktop\\prueba.pdf");
 		file = new DefaultStreamedContent(stream, "file/pdf", "prueba.pdf");
 	}
 	
 	
-	public StreamedContent getFile() {
-		return file;
-	}
+	
 	
 	
 }
