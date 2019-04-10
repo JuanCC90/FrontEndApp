@@ -97,9 +97,8 @@
 						<p:fileUpload name="C:\Users\Admin\Desktop\prueba.pdf" />
 					</p:dialog>-->
 					<h:form>
-						<p:commandButton value="Descargar" ajax="false" onclick="Primefaces.monitorDownload(start,stop);" icon="pi pi-arrow-down">
-							<p:fileDownload value="#{basicView.descargar()}" />
-						</p:commandButton>
+						<p:commandButton value="Descargar" ajax="false" onclick="Primefaces.monitorDownload(start,stop);" icon="pi pi-arrow-down"
+							actionListener="#{basicView.descargar()}" />
 					</h:form>
 				
 					
