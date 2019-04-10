@@ -251,7 +251,7 @@ public class BasicView implements Serializable {
 
 	public void descargar() {
 		try {
-			File file = new File("file.pdf");
+			File file = new File("C:\\Users\\Admin\\Desktop\\prueba.pdf");
 			FacesContext facesContext = FacesContext.getCurrentInstance();
 			HttpServletResponse response = (HttpServletResponse) facesContext.getExternalContext().getResponse();
 			response.reset();
