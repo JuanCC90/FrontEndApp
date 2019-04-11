@@ -17,6 +17,7 @@ import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.io.IOUtils;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 import org.primefaces.model.UploadedFile;
@@ -221,14 +222,18 @@ public class BasicView implements Serializable {
 		return pelicula;
 	}
 
-	public void convierteArchivo(long id) {
-		byte[] archivo = documento.getContents();
+	public void convierteArchivo(long id) throws IOException {
+		InputStream is = documento.getInputstream();
+		archivo = IOUtils.toByteArray(is);		
+		/*byte[] archivo = documento.getContents();*/
 		rt = new RestTemplate();
 		pelicula = rt.getForEntity("http://localhost:8080/Pelicula/get/" + id, PeliculaDTO.class).getBody();
 		pelicula.setArchivo(archivo);
 		HttpEntity<PeliculaDTO> request = new HttpEntity<>(pelicula);
 		rt.put("http://localhost:8080/Pelicula/put/" + id, request, PeliculaDTO.class);
 		otroArchivo = pelicula.getArchivo();
+		
+		
 		/*
 		 * try { FileOutputStream stream = new
 		 * FileOutputStream("C:\\Users\\Admin\\Desktop\\prueba.pdf");
