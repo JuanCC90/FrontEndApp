@@ -207,9 +207,6 @@ public class BasicView implements Serializable {
 		FacesContext fc;
 		peliculas = dameTodas();
 		return "/inicio.xhtml?faces-redirect=true";
-		// url="http://localhost:8081/inicio.xhtml";
-		// fc = FacesContext.getCurrentInstance();
-		// fc.getExternalContext().redirect(url);
 	}
 
 	public String redirecciona2(long id) throws IOException {
@@ -237,15 +234,8 @@ public class BasicView implements Serializable {
 		 * FileOutputStream("C:\\Users\\Admin\\Desktop\\prueba.pdf");
 		 * stream.write(otroArchivo); }catch(IOException ioe) { ioe.printStackTrace(); }
 		 */
+	}
 
-	}
-/*
-	public void descargaArchivo() {
-		InputStream stream = FacesContext.getCurrentInstance().getExternalContext()
-				.getResourceAsStream("C:\\Users\\Admin\\Desktop\\prueba.pdf");
-		file = new DefaultStreamedContent(stream, "file/pdf", "prueba.pdf");
-	}
-*/
 
 	public StreamedContent getFile() {
 		return file;
@@ -257,56 +247,7 @@ public class BasicView implements Serializable {
 		otroArchivo = pelicula.getArchivo();
 		InputStream targetStream = new ByteArrayInputStream(otroArchivo);	
 		file= new DefaultStreamedContent(targetStream,"application/pdf","archivoFinal.pdf");
-		
-	/*	
-		try {
-			rt = new RestTemplate();
-			pelicula = rt.getForEntity("http://localhost:8080/Pelicula/get/" + id, PeliculaDTO.class).getBody();
-			otroArchivo = pelicula.getArchivo();
-			FileInputStream fileInputStream = null;
-			File filecito =new File("C:\\Usuarios\\Admin\\Escritorio\\prueba.txt");
-		
-			fileInputStream = new FileInputStream(filecito);
-			fileInputStream.read(otroArchivo);
-			fileInputStream.close();
-			
-			FileOutputStream fileOutputStream = new FileOutputStream("C:\\Usuarios\\Admin\\Escritorio\\archivoFinal.txt");
-			fileOutputStream.write(otroArchivo);
-			fileOutputStream.close();
-			
-		}catch(IOException ioe) {
-			ioe.printStackTrace();
-		}*/
-		
-		
-		/*
-		try (FileOutputStream fos = new FileOutputStream("C:\\Users\\Admin\\Downloads\\prueba.pdf")) { 
-			fos.write(otroArchivo); 	
-			File file = new File("C:\\Users\\Admin\\Downloads\\prueba.pdf");
-			FacesContext facesContext = FacesContext.getCurrentInstance();
-			HttpServletResponse response = (HttpServletResponse) facesContext.getExternalContext().getResponse();
-			response.reset();
-			response.setHeader("Content-Type", "application/octet-stream");
-			response.setHeader("Content-Dispositon", "attachment;filename=file.pdf");
-			OutputStream responseOutputStream = response.getOutputStream();
-			InputStream fileInputStream = new FileInputStream(file);
-			byte[] bytesBuffer = new byte[otroArchivo.length];
-			int bytesRead;
-			while ((bytesRead = fileInputStream.read(bytesBuffer)) > 0) {
-				responseOutputStream.write(bytesBuffer, 0, bytesRead);
-			}
-			fos.close(); 
-			responseOutputStream.flush();
-			fileInputStream.close();
-			responseOutputStream.close();
-			facesContext.responseComplete();
-		} catch (IOException ioe) {
-			ioe.printStackTrace();
-		}
-		*/
-		
-		
-
+	
 	}
 
 	public String redirecciona3(long id) throws IOException {
@@ -317,6 +258,15 @@ public class BasicView implements Serializable {
 		return "/cargaArchivo.xhtml?faces-redirect=true";
 	}
 
+	/*
+	public void descargaArchivo() {
+		InputStream stream = FacesContext.getCurrentInstance().getExternalContext()
+				.getResourceAsStream("C:\\Users\\Admin\\Desktop\\prueba.pdf");
+		file = new DefaultStreamedContent(stream, "file/pdf", "prueba.pdf");
+	}
+*/
+	
+	
 	/*
 	 * public void devuelveFichero(long id) { pelicula = new PeliculaDTO(); rt = new
 	 * RestTemplate(); pelicula =
@@ -407,6 +357,15 @@ public class BasicView implements Serializable {
 	 * System.Text.ASCIIEncoding(); return codificador.GetString(otroArchivo); }
 	 * 
 	 * 
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
 	 */
+	
+	
+	
+	
 
 }
