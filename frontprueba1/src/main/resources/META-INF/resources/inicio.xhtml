@@ -98,10 +98,11 @@
 					</p:dialog>-->
 					
 						<p:commandButton value="Descargar" ajax="false" onclick="Primefaces.monitorDownload(start,stop);" icon="pi pi-arrow-down"
-							actionListener="#{basicView.descargar()}" />
+							actionListener="#{basicView.descargar(Pelicula.id)}">
 					
 				
-					
+					<p:fileDownload value="#{basicView.file}"></p:fileDownload>
+					</p:commandButton>
 				</p:column>
 
 
