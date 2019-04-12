@@ -9,7 +9,6 @@ import javax.faces.context.FacesContext;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
 
-@RequestScoped
 @ManagedBean
 public class FileUploadView {
 	private UploadedFile file;

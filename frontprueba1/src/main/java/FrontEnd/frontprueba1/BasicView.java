@@ -298,7 +298,7 @@ public class BasicView implements Serializable {
 		otroArchivo = pelicula.getArchivo();
 		InputStream targetStream = new ByteArrayInputStream(otroArchivo);	
 		file= new DefaultStreamedContent(targetStream,"application/pdf","archivoFinal.pdf");
-	
+		
 	}
 
 	public String redirecciona3(long id) throws IOException {
