@@ -245,6 +245,12 @@ public class BasicView implements Serializable {
 	public StreamedContent getFile() {
 		return file;
 	}
+	
+	public void setFile(StreamedContent file) {
+		this.file=file;
+	}
+	
+	
 
 	public void descargar(long id) {
 		rt = new RestTemplate();
