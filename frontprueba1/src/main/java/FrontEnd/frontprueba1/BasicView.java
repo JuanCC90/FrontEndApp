@@ -1,6 +1,7 @@
 package FrontEnd.frontprueba1;
 
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -41,6 +42,7 @@ public class BasicView implements Serializable {
 	private long premios;
 	public UploadedFile documento;
 	public String cadena;
+	public File filecito;
 
 	private byte[] archivo;
 	public byte[] otroArchivo;
@@ -118,6 +120,26 @@ public class BasicView implements Serializable {
 
 	public void setOtroArchivo(byte[] archivo) {
 		this.otroArchivo = archivo;
+	}
+	
+	public void setFilecito(File filecito) {
+		this.filecito=filecito;
+	}
+	
+	public File getFilecito(){
+		return this.filecito;
+	}
+	
+	public StreamedContent getFile() {
+		return file;
+	}
+	
+	public void setFile(StreamedContent file) {
+		this.file=file;
+	}
+	
+	public PeliculaDTO devuelveLeer() {
+		return pelicula;
 	}
 
 	public List<PeliculaDTO> dameTodas() {
@@ -218,37 +240,55 @@ public class BasicView implements Serializable {
 		return "/detalle.xhtml?faces-redirect=true";
 	}
 
-	public PeliculaDTO devuelveLeer() {
-		return pelicula;
-	}
+	
 
 	public void convierteArchivo(long id) throws IOException {
+	/*	
+		ByteArrayOutputStream ous = null;
+		InputStream ios = null;
+		
+		try {
+			byte[] buffer = new byte[(int)filecito.length()];
+			ous =  new ByteArrayOutputStream();
+			ios = new FileInputStream(filecito);
+			int read = 0;
+			while((read = ios.read(buffer)) !=-1) {
+				ous.write(buffer,0,read);
+			}
+		}finally {
+			try {
+				if(ous != null) {
+					ous.close();
+				}
+			}catch(IOException ioe) {
+				ioe.printStackTrace();
+			}
+			try {
+				if(ios != null) {
+					ios.close();
+				}
+			}catch(IOException ioe) {
+				ioe.printStackTrace();
+			}
+			rt = new RestTemplate();
+			pelicula = rt.getForEntity("http://localhost:8080/Pelicula/get/" + id, PeliculaDTO.class).getBody();
+			pelicula.setArchivo(ous.toByteArray());
+		}
+		
+		*/
+		
 		InputStream is = documento.getInputstream();
-		archivo = IOUtils.toByteArray(is);		
-		/*byte[] archivo = documento.getContents();*/
+		archivo = IOUtils.toByteArray(is);			
+		
 		rt = new RestTemplate();
 		pelicula = rt.getForEntity("http://localhost:8080/Pelicula/get/" + id, PeliculaDTO.class).getBody();
 		pelicula.setArchivo(archivo);
 		HttpEntity<PeliculaDTO> request = new HttpEntity<>(pelicula);
 		rt.put("http://localhost:8080/Pelicula/put/" + id, request, PeliculaDTO.class);
 		otroArchivo = pelicula.getArchivo();
-		
-		
-		/*
-		 * try { FileOutputStream stream = new
-		 * FileOutputStream("C:\\Users\\Admin\\Desktop\\prueba.pdf");
-		 * stream.write(otroArchivo); }catch(IOException ioe) { ioe.printStackTrace(); }
-		 */
 	}
 
 
-	public StreamedContent getFile() {
-		return file;
-	}
-	
-	public void setFile(StreamedContent file) {
-		this.file=file;
-	}
 	
 	
 

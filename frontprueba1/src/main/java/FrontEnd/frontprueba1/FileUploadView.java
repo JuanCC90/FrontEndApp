@@ -2,15 +2,16 @@
 package FrontEnd.frontprueba1;
 
 import javax.annotation.ManagedBean;
+import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
 
+@RequestScoped
 @ManagedBean
 public class FileUploadView {
-/*
 	private UploadedFile file;
 	
 	public UploadedFile getFile() {
@@ -19,8 +20,8 @@ public class FileUploadView {
 	
 	public void setFile(UploadedFile file) {
 		this.file=file;
-	}*/
-	/*
+	}
+	
 	public void upload() {
 		if(file != null) {
 			FacesMessage message = new FacesMessage(file.getFileName()+" Archivo Subido Correctamente");
@@ -34,7 +35,7 @@ public class FileUploadView {
 	}
 	
 
-	*/
+	
 
 }
 

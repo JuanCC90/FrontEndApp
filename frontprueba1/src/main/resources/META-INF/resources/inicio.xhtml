@@ -158,13 +158,14 @@
 					</p:commandButton>
 					
 					<!-- Botones Para Añadir Documento y Mostrarlo -->
+					  
 						<p:fileUpload value="#{basicView.documento}" mode="simple"
-							skinSimple="true" />
+							skinSimple="true" allowTypes="/(\.|\/)(gif|jpe?g|png|docx|pdf|txt)"/>
 						<br></br>
 
 						<p:commandButton value="Submit" ajax="false" disabled="false"
 							action="#{basicView.convierteArchivo(Pelicula.id)}" />
-
+				
 					
 
 
