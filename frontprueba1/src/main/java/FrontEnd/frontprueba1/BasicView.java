@@ -242,7 +242,6 @@ public class BasicView implements Serializable {
 	}
 
 	public void convierteArchivo(long id) throws IOException {
-
 		InputStream is = documento.getInputstream();
 		archivo = IOUtils.toByteArray(is);
 		rt = new RestTemplate();
