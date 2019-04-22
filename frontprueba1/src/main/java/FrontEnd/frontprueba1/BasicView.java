@@ -239,6 +239,14 @@ public class BasicView implements Serializable {
 		pelicula = rt.getForEntity("http://localhost:8080/Pelicula/get/" + id, PeliculaDTO.class).getBody();
 		return "/detalle.xhtml?faces-redirect=true";
 	}
+	
+	public String redirecciona3(long id) throws IOException {
+		pelicula = new PeliculaDTO();
+		rt = new RestTemplate();
+		pelicula = rt.getForEntity("http://localhost:8080/Pelicula/get/" + id, PeliculaDTO.class).getBody();
+		otroArchivo = pelicula.getArchivo();
+		return "/cargaArchivo.xhtml?faces-redirect=true";
+	}
 
 	
 
@@ -278,8 +286,7 @@ public class BasicView implements Serializable {
 		*/
 		
 		InputStream is = documento.getInputstream();
-		archivo = IOUtils.toByteArray(is);			
-		
+		archivo = IOUtils.toByteArray(is);		
 		rt = new RestTemplate();
 		pelicula = rt.getForEntity("http://localhost:8080/Pelicula/get/" + id, PeliculaDTO.class).getBody();
 		pelicula.setArchivo(archivo);
@@ -289,9 +296,6 @@ public class BasicView implements Serializable {
 	}
 
 
-	
-	
-
 	public void descargar(long id) {
 		rt = new RestTemplate();
 		pelicula = rt.getForEntity("http://localhost:8080/Pelicula/get/" + id, PeliculaDTO.class).getBody();
@@ -299,14 +303,6 @@ public class BasicView implements Serializable {
 		InputStream targetStream = new ByteArrayInputStream(otroArchivo);	
 		file= new DefaultStreamedContent(targetStream,"application/pdf","archivoFinal.pdf");
 		
-	}
-
-	public String redirecciona3(long id) throws IOException {
-		pelicula = new PeliculaDTO();
-		rt = new RestTemplate();
-		pelicula = rt.getForEntity("http://localhost:8080/Pelicula/get/" + id, PeliculaDTO.class).getBody();
-		otroArchivo = pelicula.getArchivo();
-		return "/cargaArchivo.xhtml?faces-redirect=true";
 	}
 
 	/*

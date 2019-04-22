@@ -157,10 +157,10 @@
 						value="ModoLectura" icon="fas fa-sign-out-alt">
 					</p:commandButton>
 					
-					<!-- Botones Para Añadir Documento y Mostrarlo -->
+					<!-- Botones Para Añadir Documento y Descargarlo -->
 					  
 						<p:fileUpload value="#{basicView.documento}" mode="simple"
-							skinSimple="true" />
+							skinSimple="true" update="table" />
 						<br></br>
 
 						<p:commandButton value="Submit" ajax="false" disabled="false"
