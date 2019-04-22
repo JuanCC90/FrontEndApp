@@ -190,12 +190,6 @@ public class BasicView implements Serializable {
 	}
 
 	public List<PeliculaDTO> actualiza(long id) {
-		/*
-		 * Pelicula peli=new Pelicula(); peli.setId(id); peli.setNombre(nombre);
-		 * peli.setAnio(anio); peli.setPremios(premios);
-		 * serviPeli.actualizaPelicula(peli, id); peliculas=new ArrayList<>();
-		 * peliculas.addAll(serviPeli.getAll());
-		 */
 		pelicula = new PeliculaDTO();
 		pelicula.setNombre(nombre);
 		pelicula.setAnio(anio);
@@ -300,14 +294,7 @@ public class BasicView implements Serializable {
 	 * 
 	 */
 
-	/*
-	 * public void muestraArchivo() { cadena="";
-	 * 
-	 * for(int i=0;i<otroArchivo.length;i++) { cadena +=otroArchivo[i]; }
-	 * 
-	 * 
-	 * }
-	 */
+
 
 	/*
 	 * public void leerBytesdeArchivo(File documento, long id) {
