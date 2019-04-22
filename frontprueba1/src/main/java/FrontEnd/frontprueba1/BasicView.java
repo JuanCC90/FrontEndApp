@@ -251,7 +251,18 @@ public class BasicView implements Serializable {
 	
 
 	public void convierteArchivo(long id) throws IOException {
-	/*	
+		
+		InputStream is = documento.getInputstream();
+		archivo = IOUtils.toByteArray(is);		
+		rt = new RestTemplate();
+		pelicula = rt.getForEntity("http://localhost:8080/Pelicula/get/" + id, PeliculaDTO.class).getBody();
+		pelicula.setArchivo(archivo);
+		HttpEntity<PeliculaDTO> request = new HttpEntity<>(pelicula);
+		rt.put("http://localhost:8080/Pelicula/put/" + id, request, PeliculaDTO.class);
+		otroArchivo = pelicula.getArchivo();
+		
+		
+		/*	
 		ByteArrayOutputStream ous = null;
 		InputStream ios = null;
 		
@@ -285,18 +296,11 @@ public class BasicView implements Serializable {
 		
 		*/
 		
-		InputStream is = documento.getInputstream();
-		archivo = IOUtils.toByteArray(is);		
-		rt = new RestTemplate();
-		pelicula = rt.getForEntity("http://localhost:8080/Pelicula/get/" + id, PeliculaDTO.class).getBody();
-		pelicula.setArchivo(archivo);
-		HttpEntity<PeliculaDTO> request = new HttpEntity<>(pelicula);
-		rt.put("http://localhost:8080/Pelicula/put/" + id, request, PeliculaDTO.class);
-		otroArchivo = pelicula.getArchivo();
 	}
 
 
 	public void descargar(long id) {
+		
 		rt = new RestTemplate();
 		pelicula = rt.getForEntity("http://localhost:8080/Pelicula/get/" + id, PeliculaDTO.class).getBody();
 		otroArchivo = pelicula.getArchivo();
